@@ -6,7 +6,7 @@ import "./search.css";
 export default class Search extends Component {
   state ={
     users: [],
-    hikes: []
+    trails: []
   }
 
   // getAllEntries(resourse, ...search) {
@@ -14,10 +14,10 @@ export default class Search extends Component {
   //     .then(data => data.json())
   // },
 
-getHardCodedHikes = () => {
+getHardCodedTrails = () => { 
   const newState ={}
-  APIManager.getAllEntries("hikes")
-  .then(hikes => newState.hikes = hikes)
+  APIManager.getAllEntries("trails")
+  .then(trails => newState.trails = trails)
   .then( () => this.setState(newState))
 }
 
@@ -28,16 +28,17 @@ getHardCodedHikes = () => {
         <div className="searchField">
           <h2>Search for a hike in a city near you</h2>
           <InputGroup >
-            <InputGroupAddon addonType="prepend"><Button onClick={()=> this.getHardCodedHikes()}>Search</Button></InputGroupAddon>
+            <InputGroupAddon addonType="prepend"><Button onClick={()=> this.getHardCodedTrails()}>Search</Button></InputGroupAddon>
             <Input placeholder="City Name" />
           </InputGroup>
         </div>
         <div className="searchResultHolder">
         {
-          this.state.hikes.map(hike => 
-            <div key={hike.id} className="hikeCard">
-            <h1>{hike.name}</h1>
-            <p>{hike.summary}</p>
+          this.state.trails.map(trail => 
+            <div key={trail.id} className="trailCard">
+            <h1>{trail.name}</h1>
+                <img src={trail.imgSqSmall} atl={trail.imageUrl}></img>
+            <p>{trail.summary}</p>
             </div>
           )
         }
