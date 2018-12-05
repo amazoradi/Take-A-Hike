@@ -24,9 +24,8 @@ export default class Login extends Component {
                 Remember Me
             </Label>
             </FormGroup>
-            <Button>Login</Button>
+            <Button onClick={ ()=> this.props.handleLogin()}>Login</Button>
           </div>
-
           <button onClick={() => this.props.handleChangeForm()}>New Here? Click here to register.</button>
         </div>
       </React.Fragment>

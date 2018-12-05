@@ -23,7 +23,9 @@ export default class Welcome extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
+    // console.log(stateToChange)
   }
+  
   //handle the checkbox change
   handleCheckbox = (evt) => {
     const stateToChange = {}
@@ -78,9 +80,9 @@ export default class Welcome extends Component {
     if (this.state.loginEmail === "" || this.state.loginPassword === "") {
       alert("No fields should be left blank")
     } else {
-      APIManager.getAllEntries("users", `/?email=${this.state.loginEmail}`, `&password=${this.state.loginPassword}`)
+      APIManager.getAllEntries("users", `?email=${this.state.loginEmail}`, `&password=${this.state.loginPassword}`)
         .then(returns => {
-          if (returns.length === 0) {
+          if (returns.length < 1) {
             alert("That email doesn't exist or your password doesn't match. Please try again")
           } else if (this.state.remember === "") {
             sessionStorage.setItem("userId", returns[0].id)
