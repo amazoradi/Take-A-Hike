@@ -59,7 +59,7 @@ export default class Welcome extends Component {
     if (this.state.registerEmail === "" || this.state.registerName === "" || this.state.registerPassword === "" || this.state.registerLocation === "") {
       alert("No fields should be left blank")
     } else if (this.state.registerEmail.includes("@")) {
-      APIManager.getAllEntries("users", `/email=${this.state.registerEmail}`)
+      APIManager.getAllEntries("users", `/?email=${this.state.registerEmail}`)
         .then((returns) => {
           if (returns.length > 0) {
             alert("This email is already registered. Please try another.")
@@ -80,7 +80,7 @@ export default class Welcome extends Component {
     if (this.state.loginEmail === "" || this.state.loginPassword === "") {
       alert("No fields should be left blank")
     } else {
-      APIManager.getAllEntries("users", `?email=${this.state.loginEmail}`, `&password=${this.state.loginPassword}`)
+      APIManager.getAllEntries("users", `/?email=${this.state.loginEmail}&password=${this.state.loginPassword}`)
         .then(returns => {
           if (returns.length < 1) {
             alert("That email doesn't exist or your password doesn't match. Please try again")
