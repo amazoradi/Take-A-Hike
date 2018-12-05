@@ -84,7 +84,7 @@ export default class Welcome extends Component {
         .then(returns => {
           if (returns.length < 1) {
             alert("That email doesn't exist or your password doesn't match. Please try again")
-          } else if (this.state.remember === "") {
+          } else if (this.state.remember === false) {
             sessionStorage.setItem("userId", returns[0].id)
 
             this.setState({
