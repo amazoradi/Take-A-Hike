@@ -30,7 +30,7 @@ class HikeNavBar extends Component {
           <NavbarBrand href="/">Take a Hike</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav  className="ml-auto" navbar>
+            <Nav className="ml-auto" navbar>
               <NavItem>
                 <Link to="/" className="nav-link">Search</Link>
               </NavItem>
