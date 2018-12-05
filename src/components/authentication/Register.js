@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 export default class Register extends Component {
 
-  render(){
-    return(
+  render() {
+    return (
       <React.Fragment>
         <div className={this.props.hideLoginForm ? "loginForm" : "hide"}>
           <h2> Register Here </h2>
@@ -22,8 +22,8 @@ export default class Register extends Component {
           </FormGroup>
           <FormGroup check>
             <Label for="registerLocation"> Your Location </Label>
-              <Input type="text" name="location" id="registerLocation" placeholder="You're current city" onChange={this.props.handleFieldChange} />
-             
+            <Input type="text" name="location" id="registerLocation" placeholder="You're current city" onChange={this.props.handleFieldChange} />
+
           </FormGroup>
           <Button onClick={() => this.props.handleRegister()}>Register</Button>
           <button onClick={() => this.props.handleChangeForm()}>Return to login</button>

@@ -25,32 +25,32 @@ export default class ApplicationViews extends Component {
       <React.Fragment>
 
         <Route exact path="/" render={(props) => {
-          // if (this.isAuthenticated()) {
+          if (this.isAuthenticated()) {
             return <Search {...props} getAllUsers={this.getAllUsers} />
-          // } else {
-            // return <Redirect to="/welcome" />
-          // }
+          } else {
+            return <Redirect to="/welcome" />
+          }
         }} /> 
         <Route exact path="/itinerary" render={(props) => {
-          // if (this.isAuthenticated()) {
+          if (this.isAuthenticated()) {
             return <Itinerary {...props} getAllUsers={this.getAllUsers} />
-          // } else {
-            // return <Redirect to="/welcome" />
-          // }
+          } else {
+            return <Redirect to="/welcome" />
+          }
         }} />
         <Route exact path="/myHikes" render={(props) => {
-          // if (this.isAuthenticated()) {
+          if (this.isAuthenticated()) {
             return <MyHikeList {...props} getAllUsers={this.getAllUsers} />
-          // } else {
-            // return <Redirect to="/welcome" />
-          // }
+          } else {
+            return <Redirect to="/welcome" />
+          }
         }} />
         <Route exact path="/messages" render={(props) => {
-          // if (this.isAuthenticated()) {
+          if (this.isAuthenticated()) {
             return <Messages {...props} getAllUsers={this.getAllUsers}/>
-          // } else {
-            // return <Redirect to="/welcome" />
-          // }
+          } else {
+            return <Redirect to="/welcome" />
+          }
         }} />
         <Route exact path="/welcome" render={(props) => {
           return (

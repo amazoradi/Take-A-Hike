@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, FormGroup, Label, Input } from 'reactstrap';
 import "./authentication.css"
 
 export default class Login extends Component {
@@ -24,7 +24,7 @@ export default class Login extends Component {
                 Remember Me
             </Label>
             </FormGroup>
-            <Button onClick={ ()=> this.props.handleLogin()}>Login</Button>
+            <Button onClick={() => this.props.handleLogin()}>Login</Button>
           </div>
           <button onClick={() => this.props.handleChangeForm()}>New Here? Click here to register.</button>
         </div>

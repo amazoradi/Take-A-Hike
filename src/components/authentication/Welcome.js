@@ -25,7 +25,7 @@ export default class Welcome extends Component {
     this.setState(stateToChange)
     // console.log(stateToChange)
   }
-  
+
   //handle the checkbox change
   handleCheckbox = (evt) => {
     const stateToChange = {}
@@ -104,7 +104,7 @@ export default class Welcome extends Component {
         })
     }
   }
-  
+
   render() {
     return (
       <React.Fragment>
