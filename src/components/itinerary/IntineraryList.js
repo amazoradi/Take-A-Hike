@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class Search extends Component {
+export default class Itinerary extends Component {
 
   render() {
     return (
-      <div>My search results</div>
+      <div>My Itinerary</div>
     )
   }
 }
