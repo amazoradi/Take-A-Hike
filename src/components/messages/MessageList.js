@@ -75,6 +75,29 @@ export default class Messages extends Component {
       .then(messages => this.setState({ messages: messages }))
   }
 
+  //edit message
+
+  handleEditFieldChange = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+  }
+
+  editMessage = (id, message) => {
+    APIManager.editEntry("messages", id, message)
+
+  }
+
+  constructEditedMessage = () => {
+    const editedMessage = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      message: this.state.editMessageText,
+      imgUrl: this.state.editMessageImg,
+      id:this.state.editId
+    }
+    this.editMessage(editedMessage.id, editedMessage)
+  }
+
 
 
   // modal functions
@@ -133,8 +156,10 @@ export default class Messages extends Component {
             this.state.messages.map(message =>
               <div key={message.id} className="messageCard">
                 <h2 className="messageUserName">{message.user.name}</h2>
-                <p>{message.message}</p>
+                <div className="messageContent">
                 <img src={message.imgUrl} alt="pretty picture"></img>
+                <p>{message.message}</p>
+                </div>
                 <p><Moment format="MM-DD-YYYY hh:mm a">{message.time}</Moment></p>
                 <Button icon className="btn editButton" onClick={() => console.log("edit")}>
                   <Icon name='pencil alternate' className="editButton" />
@@ -142,6 +167,7 @@ export default class Messages extends Component {
                 <Button icon className="btn deleteButton" onClick={() => this.deleteMessage(`${message.id}`)}>
                   <Icon name='trash alternate outline' />
                 </Button>
+                
               </div>
             )
           }
