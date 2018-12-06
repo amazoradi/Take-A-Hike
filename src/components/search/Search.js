@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 import APIManager from "../../modules/APIManager"
 import "./search.css";
+import parameters from "../../config/callParams"
 
 export default class Search extends Component {
   state = {
@@ -18,10 +19,10 @@ export default class Search extends Component {
       .then(trails => newState.trails = trails)
       .then(() => this.setState(newState))
   }
-
+ 
   getForgeinTrails = () => {
     const newState = {}
-    APIManager.getSearchedHikes(`?lat=${this.state.locationLat}&lon=${this.state.locationLong}&maxDistance=40&maxResults=25&key=200389138-ef8557e5084696c009019bc9fc1f5687`)
+    APIManager.getSearchedHikes(`?lat=${this.state.locationLat}&lon=${this.state.locationLong}&maxDistance=40&maxResults=25&key=${parameters.hikingProject}`)
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
   }
@@ -31,7 +32,6 @@ export default class Search extends Component {
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
   }
-
 
   getHardCodedLocations = (locationName) => {
     const newState = {}
@@ -69,8 +69,8 @@ export default class Search extends Component {
                   <h5>{trail.length} miles. {trail.stars} stars out of 5</h5>
                   <p>{trail.summary}</p>
                   <div className="cardButtons">
-                    <button>Add to my Itinerary</button>
-                    <button >Add to My Hikes</button>
+                    <button className="btn">Add to my Itinerary</button>
+                    <button className="btn">Add to My Hikes</button>
                   </div>
                 </div>
               </div>
