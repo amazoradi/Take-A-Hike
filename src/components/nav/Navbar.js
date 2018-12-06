@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavItem } from 'reactstrap';
 
 
 class HikeNavBar extends Component {
@@ -17,7 +17,7 @@ class HikeNavBar extends Component {
       return (
         <div>
           <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">Take a Hike</NavbarBrand>
+            <NavbarBrand >Take a Hike</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <Link to="/" className="nav-link">Search</Link>
@@ -41,7 +41,7 @@ class HikeNavBar extends Component {
     } else {
       return (
         <div>
-          <h2>Take A Hike</h2>
+          <h2 className="welcomeTitle">Take A Hike</h2>
         </div>
       )
     }
