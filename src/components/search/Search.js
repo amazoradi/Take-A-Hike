@@ -32,50 +32,27 @@ export default class Search extends Component {
     this.setState(stateToChange)
   }
 
-  // searchHandler = (locationName) => {
-  //   APIManager.getAllEntries("locations")
-  // }
-
 
   getHardCodedLocations = (locationName) => {
     const newState = {}
     return APIManager.getAllEntries("locations", `/?name=${locationName}`)
       .then(location => {
-        // console.log(location)
         newState.locationLat = location[0].latitude
         newState.locationLong = location[0].longitude
       })
       .then(() => this.setState(newState))
-      .then( () => this.getForgeinTrails())
+      .then(() => this.getForgeinTrails())
       .catch(error => console.error('Error:', error));
   }
-
-  // onClick = {() => this.getHardCodedTrails()
-
-  gethikes = () => {
-    const newState ={}
-    return fetch("https://www.hikingproject.com/data/get-trails?lat=34.4208&lon=-119.6982&maxDistance=40&maxResults=70&key=200389138-ef8557e5084696c009019bc9fc1f5687")
-      .then(data => data.json())
-      .then(trails => newState.trails = trails.trails)
-      .then (() => console.log(newState))
-      .then(() => this.setState(newState))
-      .then(() => console.log(this.state.trails))
-  }
-
-
- 
-
 
   render() {
     return (
       <React.Fragment>
         <div className="searchField">
-          <h2 onClick={this.gethikes}>Search for a hike in a city near you</h2>
+          <h2>Search for a hike in a city near you</h2>
           <InputGroup >
             <InputGroupAddon addonType="prepend"><Button onClick={() => {
-              //  this.getHardCodedTrails()
               this.getHardCodedLocations(this.state.location)
-
             }}
             >Search</Button></InputGroupAddon>
             <Input placeholder="City Name" id="location" onChange={this.handleFieldChange} />
