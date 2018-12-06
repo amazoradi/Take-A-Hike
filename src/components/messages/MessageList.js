@@ -59,12 +59,20 @@ export default class Messages extends Component {
       message: this.state.messageText,
       imgUrl: this.state.messageImg
     }
-    //basic form validation, will not let an new message be blank or one space
+    // basic form validation, will not let an new message be blank or one space
     // if (this.state.messageText === "" || this.state.messageText === " ") {
     //   alert("Please enter a message")
     // } else {
       this.addNewMessage(message)
     // }
+  }
+
+  //delete message
+  
+  deleteMessage = id => {
+    APIManager.deleteEntry("messages", id)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(messages => this.setState({ messages: messages }))
   }
 
 
@@ -131,7 +139,7 @@ export default class Messages extends Component {
                 <Button icon className="btn editButton" onClick={() => console.log("edit")}>
                   <Icon name='pencil alternate' className="editButton" />
                 </Button>
-                <Button icon className="btn deleteButton" onClick={() => console.log("delete")}>
+                <Button icon className="btn deleteButton" onClick={() => this.deleteMessage(`${message.id}`)}>
                   <Icon name='trash alternate outline' />
                 </Button>
               </div>
