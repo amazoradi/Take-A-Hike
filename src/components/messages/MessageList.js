@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
 import "./messages.css"
+import Moment from 'react-moment';
+import { Button, Icon, Header, Image, Modal, Input } from 'semantic-ui-react'
 
 export default class Messages extends Component {
 
@@ -16,37 +18,131 @@ export default class Messages extends Component {
     editId: "",
     userName: "",
     currentUserId: this.props.getCurrentUser(),
+    open: false
   }
 
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
-    console.log(newState)
-    console.log("messages from state", this.state.messages)
+
+    APIManager.getEntry("users", this.state.currentUserId)
+      .then((user) => {
+        this.setState({ userName: user.name })
+      })
+  }
+
+  //targets the imput field value to be the setting the state
+  handleFieldChange = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+  }
+
+  //new message functions
+
+  // posts a new message to the database and then gets all messages and puts them in state
+  addNewMessage = newMessage => {
+    APIManager.addEntry("messages", newMessage)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(messages => this.setState({messages: messages}))
+  }
+
+  //constructor function for a a new mesage
+  constructNewMessage = () => {
+    const message = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      time: new Date(),
+      message: this.state.messageText,
+      imgUrl: this.state.messageImg
+    }
+    //basic form validation, will not let an new message be blank or one space
+    // if (this.state.messageText === "" || this.state.messageText === " ") {
+    //   alert("Please enter a message")
+    // } else {
+      this.addNewMessage(message)
+    // }
   }
 
 
 
+  // modal functions
+  show = dimmer => () => this.setState({ dimmer, open: true })
+  close = () => this.setState({ open: false })
+
+
   render() {
+    const { open, dimmer } = this.state
+
     return (
       <React.Fragment>
-        <h2>My Messages</h2>
+        <div>
+
+          <Button onClick={this.show('blurring')}>New Message</Button>
+
+          <Modal dimmer={dimmer} open={open} onClose={this.close}>
+            <Modal.Header>Create a New Message</Modal.Header>
+            <Modal.Content /*image*/>
+              {/* <Image wrapped size='small' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' /> */}
+              <Modal.Description>
+                <Header>Take A Hike, Leave a Message</Header>
+                <div>
+                  <Input icon placeholder='Message'>
+                    <input onChange={this.handleFieldChange} id="messageText"/>
+                    <Icon name='pencil alternate' />
+                  </Input>
+                  <br />
+                  <br />
+                  <Input iconPosition='left' placeholder='Image'>
+                    <Icon name='image' />
+                    <input onChange={this.handleFieldChange} id="messageImg" />
+                  </Input>
+                </div>
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color='black' onClick={this.close}>
+                Cancel
+            </Button>
+              <Button
+                positive
+                icon='checkmark'
+                labelPosition='right'
+                content="Save"
+                onClick={ () => {
+                  this.constructNewMessage()
+                  this.close()}}
+              />
+            </Modal.Actions>
+          </Modal>
+        </div>
+        <h2>{this.state.userName}&#39;s Messages</h2>
         <div className="messageHolder">
           {
             this.state.messages.map(message =>
               <div key={message.id} className="messageCard">
-                <p>
-                  A note:
-                  {message.message}
-                </p>
+                <h2 className="messageUserName">{message.user.name}</h2>
+                <p>{message.message}</p>
                 <img src={message.imgUrl} alt="pretty picture"></img>
+                <p><Moment format="MM-DD-YYYY hh:mm a">{message.time}</Moment></p>
+                <Button icon className="btn editButton" onClick={() => console.log("edit")}>
+                  <Icon name='pencil alternate' className="editButton" />
+                </Button>
+                <Button icon className="btn deleteButton" onClick={() => console.log("delete")}>
+                  <Icon name='trash alternate outline' />
+                </Button>
               </div>
             )
           }
+
+
+          {/* <Button icon className="btn newButton" onClick={this.show('blurring')}> <Icon name='plus square outline' /></Button> */}
+
+
+
         </div>
       </React.Fragment>
     )

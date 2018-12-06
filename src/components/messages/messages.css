@@ -1,7 +1,12 @@
 .messageCard {
-border: 1px solid dodgerblue;
-background-color: coral;
-padding: 20px;
-margin: 15px 20%;
-width: 60%;
+  border: 1px solid dodgerblue;
+  background-color: turquoise;
+  padding: 20px;
+  margin: 15px 20%;
+  width: 60%;
+}
+
+.messageCard img {
+  width: 160px;
+  height: auto;
 }
