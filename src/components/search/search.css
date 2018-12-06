@@ -6,7 +6,17 @@
 
 .trailCard {
   border: 1px solid black;
-  margin: 15px 25%;
+  margin: 15px 20%;
   padding: 10px;
   background-color: whitesmoke;
+  display: flex;
+}
+
+.trailCard img {
+  width: 150px;
+  height: 150px;
+  margin: 20px;
+}
+.trailCard button {
+  margin: 5px;
 }
