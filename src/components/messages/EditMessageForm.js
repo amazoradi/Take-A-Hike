@@ -17,13 +17,7 @@ export default class EditMessageForm extends Component {
     return (
       <React.Fragment>
         <div >
-          <div className={this.props.hideEditForm ? null : "hide"}>
-          <Button  icon="pencil" onClick={() => {
-            this.props.handleEditClick()
-            this.props.handleNewEdit(this.props.message.message, this.props.message.imgUrl, this.props.message.id)
-          }
-        }></Button>
-        </div>
+     
           <Form className={this.props.hideEditForm ? 'hide' : null}>
           <Form.Field>
             <label>Message</label>
@@ -37,7 +31,10 @@ export default class EditMessageForm extends Component {
             <input id="editId" className="hide" defaultValue={this.props.message.id} onChange={this.props.handleEditFieldChange} />
           </Form.Field>
           <Button onClick={this.props.handleEditClick}>Cancel</Button>
-            <Button onClick={this.props.constructEditedMessage}>Submit</Button>
+            <Button onClick={ () => {
+              this.props.handleEditClick()
+              this.props.constructEditedMessage()
+            }}>Submit</Button>
         </Form>
         </div>
       </React.Fragment>
@@ -45,4 +42,13 @@ export default class EditMessageForm extends Component {
   }
 
   }
+
+
+{/* <div className={this.props.hideEditForm ? null : "hide"}>
+  <Button icon="pencil" onClick={() => {
+    this.props.handleEditClick()
+    this.props.handleNewEdit(this.props.message.message, this.props.message.imgUrl, this.props.message.id)
+  }
+  }></Button>
+</div> */}
 

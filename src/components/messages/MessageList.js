@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import { Button, Icon, Header, Image, Modal, Input } from 'semantic-ui-react'
 import EditMessageForm from './EditMessageForm';
 import MessageButtons from './MessageButtons';
+import MessageCard from './MessageCard';
 
 export default class Messages extends Component {
 
@@ -177,31 +178,16 @@ export default class Messages extends Component {
         <div className="messageHolder">
           {
             this.state.messages.map(message =>
-              <div key={message.id} className="messageCard">
-                
-                <h2 /*className={this.state.hideEditForm ? "messageUserName" : "hide"}*/>{message.user.name}</h2>
-                <div /*className={this.state.hideEditForm ? "messageContent" : "hide"}*/>
-                <img src={message.imgUrl} alt="pretty picture"></img>
-                <p>{message.message}</p>
-                </div>
-                <p><Moment format="MM-DD-YYYY hh:mm a">{message.time}</Moment></p>
-                <MessageButtons message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage}/>
-              </div> 
+              <MessageCard key={message.id} message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
             )
           }
-
-
-          {/* <Button icon className="btn newButton" onClick={this.show('blurring')}> <Icon name='plus square outline' /></Button> */}
-
-
-
         </div>
       </React.Fragment>
         )
       }
     }
     
-    
+    // message buttons
   // <div className={this.state.hideEditForm ? "buttonHolder" : "hide"}>
   //           <Button icon className={this.state.hideEditForm ? "btn deleteButton" : "hide"} onClick={() => this.deleteMessage(`${message.id}`)}>
   //             <Icon name='trash alternate outline' />
@@ -209,3 +195,14 @@ export default class Messages extends Component {
   //         </div>
   //         <EditMessageForm message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} />
        
+// messagecard
+// <div key={message.id} className="messageCard">
+
+//   <h2 /*className={this.state.hideEditForm ? "messageUserName" : "hide"}*/>{message.user.name}</h2>
+//   <div /*className={this.state.hideEditForm ? "messageContent" : "hide"}*/>
+//     <img src={message.imgUrl} alt="pretty picture"></img>
+//     <p>{message.message}</p>
+//   </div>
+//   <p><Moment format="MM-DD-YYYY hh:mm a">{message.time}</Moment></p>
+//   <MessageButtons message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
+// </div> 
