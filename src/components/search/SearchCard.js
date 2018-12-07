@@ -46,7 +46,7 @@ export default class SearchResultCard extends Component {
 
     return (
       <div key={this.props.trail.id} className="trailCard">
-        <img src={this.props.trail.imgSqSmall} atl=""></img>
+        <img src={this.props.trail.imgSqSmall} alt=""></img>
         <div className="cardText">
           <h2>{this.props.trail.name}</h2>
           <h4>{this.props.trail.location}</h4>

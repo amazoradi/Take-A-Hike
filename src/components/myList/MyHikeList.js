@@ -20,7 +20,7 @@ export default class MyHikeList extends Component {
         {
           this.state.hikes.map(hike =>
             <div key={hike.id}>
-              <img src={hike.imgSqSmall} atl={hike.imageUrl}></img>
+              <img src={hike.imgSqSmall} alt=""></img>
               <div className="cardText">
                 <h2>{hike.name}</h2>
                 <h4>{hike.location}</h4>

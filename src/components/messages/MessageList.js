@@ -3,6 +3,7 @@ import APIManager from "../../modules/APIManager"
 import "./messages.css"
 import Moment from 'react-moment';
 import { Button, Icon, Header, Image, Modal, Input } from 'semantic-ui-react'
+import EditMessageForm from './EditMessageForm';
 
 export default class Messages extends Component {
 
@@ -84,7 +85,12 @@ export default class Messages extends Component {
   }
 
   editMessage = (id, message) => {
+    const newState ={}
     APIManager.editEntry("messages", id, message)
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(messages => newState.messages = messages)
+      .then(() => this.setState(newState))
+
 
   }
 
@@ -95,6 +101,7 @@ export default class Messages extends Component {
       imgUrl: this.state.editMessageImg,
       id:this.state.editId
     }
+    console.log(editedMessage)
     this.editMessage(editedMessage.id, editedMessage)
   }
 
@@ -161,13 +168,11 @@ export default class Messages extends Component {
                 <p>{message.message}</p>
                 </div>
                 <p><Moment format="MM-DD-YYYY hh:mm a">{message.time}</Moment></p>
-                <Button icon className="btn editButton" onClick={() => console.log("edit")}>
-                  <Icon name='pencil alternate' className="editButton" />
-                </Button>
+               
                 <Button icon className="btn deleteButton" onClick={() => this.deleteMessage(`${message.id}`)}>
                   <Icon name='trash alternate outline' />
                 </Button>
-                
+                <EditMessageForm message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} constructEditedMessage={this.constructEditedMessage}/>
               </div>
             )
           }

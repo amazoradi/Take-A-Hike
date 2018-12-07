@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
-import { Input, Menu, Segment } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 
 
 class HikeNavBar extends Component {
