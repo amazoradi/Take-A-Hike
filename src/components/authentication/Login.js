@@ -13,11 +13,11 @@ export default class Login extends Component {
         <h2> Login Here </h2>
         <Form>
         <Form.Field >
-          <label for="loginEmail">Email</label>
+          <label htmlFor="loginEmail">Email</label>
             <Input iconPosition='left' icon={<Icon name='at' />} type="email" placeholder='Email@email.com' id="loginEmail" onChange={this.props.handleFieldChange} />
         </Form.Field>
         <Form.Field>
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
             <Input iconPosition='left' icon={<Icon name='lock' />} type="password" placeholder='Password' id="loginPassword" onChange={this.props.handleFieldChange}/>
         </Form.Field>
         <Form.Field>

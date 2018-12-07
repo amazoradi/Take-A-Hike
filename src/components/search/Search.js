@@ -38,7 +38,6 @@ export default class Search extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
-    console.log(stateToChange)
   }
 
   getHardCodedLocations = (locationName) => {
@@ -83,7 +82,7 @@ export default class Search extends Component {
         <div className="searchField">
           <h2>Search for a hike in a city near you</h2>
           <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
-          <Icon name='search' link='true' onClick={() => {
+          <Icon name='search' link onClick={() => {
             this.getHardCodedLocations(this.state.location)
           }}/>
         </div>

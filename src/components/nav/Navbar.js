@@ -25,38 +25,23 @@ class HikeNavBar extends Component {
             <Menu.Item name='Take A Hike' />
             <Menu.Menu position='right'>
 
-              <Link to="/" >
-                <Menu.Item name='search' active={activeItem === 'search'} onClick={this.handleItemClick} />
-              </Link>
-              <Link to="/itinerary" className="">
-                <Menu.Item
-                  name='itinerary'
-                  active={activeItem === 'itinerary'}
-                  onClick={this.handleItemClick}
-                />
-              </Link>
-              <Link to="/myHikes" className="">
-                <Menu.Item
-                  name='My Hikes'
-                  active={activeItem === 'My Hikes'}
-                  onClick={this.handleItemClick}
-                />
-              </Link>
-              <Link to="/messages" className="nav-link">
-                <Menu.Item
-                  name='messages'
-                  active={activeItem === 'messages'}
-                  onClick={this.handleItemClick}
-                />
-              </Link>
-              <Link to="/welcome" className="nav-link" onClick={() => this.logoutUser()}>
-                <Menu.Item name='Logout' active={activeItem === 'Logout'}
-                  onClick={this.handleItemClick} />
-              </Link>
+              <Menu.Item name='search' active={activeItem === 'search'} as={Link} to="/" onClick={this.handleItemClick} />
+
+              <Menu.Item name='itinerary' active={activeItem === 'itinerary'} as={Link} to="/itinerary" onClick={this.handleItemClick} />
+
+              <Menu.Item name='My Hikes' active={activeItem === 'My Hikes'} as={Link} to="/myHikes" onClick={this.handleItemClick} />
+
+              <Menu.Item name='messages' active={activeItem === 'messages'} as={Link} to="/messages" onClick={this.handleItemClick} />
+
+              <Menu.Item name='Logout' active={activeItem === 'Logout'} as={Link} to="/welcome" onClick={() => {
+                this.handleItemClick()
+                this.logoutUser()
+              }} />
+
             </Menu.Menu>
           </Menu>
         </div >
-    
+
       )
     } else {
       return (

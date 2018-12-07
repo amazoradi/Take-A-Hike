@@ -10,7 +10,7 @@ export default class Register extends Component {
           <h2> Register Here </h2>
           <Form>
             <Form.Field>
-              <label for="registerName">Name</label>
+              <label htmlFor="registerName">Name</label>
               <Input iconPosition='left' icon={<Icon name='user outline' />} type="text" placeholder='Joe Shepard' id="registerName" onChange={this.props.handleFieldChange} />
             </Form.Field>
             <Form.Field>

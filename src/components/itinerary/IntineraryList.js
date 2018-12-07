@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
+import { Button } from 'semantic-ui-react';
 
 export default class Itinerary extends Component {
   state={
@@ -25,6 +26,10 @@ export default class Itinerary extends Component {
               <h4>{hike.location}</h4>
               <h5>{hike.length} miles. {hike.stars} stars out of 5</h5>
               <p>{hike.summary}</p> 
+              </div>
+              <div className="cardButtons">
+                <Button className="btn" onClick={() => console.log("delete")} >Remove</Button>
+                <Button className="btn" onClick={() => console.log("to gikes")}>Add to My Hikes</Button>
               </div>
               </div>
               )
