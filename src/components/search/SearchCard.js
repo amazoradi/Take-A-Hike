@@ -10,7 +10,7 @@ export default class SearchResultCard extends Component {
     summary: ""
   }
 
-  constructHikeCard = () => {
+  constructItineraryHikeCard = () => {
     const hikeCard = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       name: this.props.trail.name,
@@ -19,6 +19,22 @@ export default class SearchResultCard extends Component {
       stars: this.props.trail.length,
       summary: this.props.trail.summary,
       completed: false,
+      public: false,
+      date_completed: "",
+      completed_message: ""
+    }
+    console.log(hikeCard)
+    this.props.addHikeCard(hikeCard)
+  }
+  constructCompletedHikeCard = () => {
+    const hikeCard = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      name: this.props.trail.name,
+      hikeLocation: this.props.trail.location,
+      length: this.props.trail.length,
+      stars: this.props.trail.length,
+      summary: this.props.trail.summary,
+      completed: true,
       public: false,
       date_completed: "",
       completed_message: ""
@@ -38,13 +54,12 @@ render() {
         <h5>{this.props.trail.length} miles. {this.props.trail.stars} stars out of 5</h5>
         <p>{this.props.trail.summary}</p>
         <div className="cardButtons">
-          <button  className="btn" onClick={()=> this.constructHikeCard()} >Add to my Itinerary</button>
-          <button  className="btn" onClick={()=>{console.log("my hike")}}>Add to My Hikes</button>
+          <button  className="btn" onClick={()=> this.constructItineraryHikeCard()} >Add to my Itinerary</button>
+          <button  className="btn" onClick={()=> this.constructCompletedHikeCard()}>Add to My Hikes</button>
         </div>
       </div>
     </div>
   ) 
 }
-
 }
 
