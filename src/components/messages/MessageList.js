@@ -22,7 +22,6 @@ export default class Messages extends Component {
     userName: "",
     currentUserId: this.props.getCurrentUser(),
     open: false,
-    hideEditForm: true
   }
 
   componentDidMount() {
@@ -117,13 +116,6 @@ export default class Messages extends Component {
   }
 
 
-
-  handleEditClick = () => {
-    const currentState = this.state.hideEditForm;
-    this.setState({ hideEditForm: !currentState });
-  };
-
-
   // modal functions
   show = dimmer => () => this.setState({ dimmer, open: true })
   close = () => this.setState({ open: false })
@@ -178,7 +170,7 @@ export default class Messages extends Component {
         <div className="messageHolder">
           {
             this.state.messages.map(message =>
-              <MessageCard key={message.id} message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
+              <MessageCard key={message.id} message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
             )
           }
         </div>
