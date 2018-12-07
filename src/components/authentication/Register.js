@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { Button, FormGroup, Label, Input } from 'reactstrap';
-import { Button, Checkbox, Form, Icon, Input } from 'semantic-ui-react'
+import { Button, Form, Icon, Input } from 'semantic-ui-react'
 
 export default class Register extends Component {
 

@@ -11,7 +11,13 @@ export default class Search extends Component {
     trails: [],
     location: "",
     locationLat: "",
-    locationLong: ""
+    locationLong: "",
+    hikes: [],
+    name: "",
+    hikeLocation: "",
+    length: "",
+    stars: "",
+    summary: "",
   }
 
   getHardCodedTrails = () => {
@@ -47,6 +53,30 @@ export default class Search extends Component {
       .catch(error => console.error('Error:', error));
   }
 
+  constructHikeCard = () => {
+    const hikeCard = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      name: this.state.name,
+      hikeLocation: this.state.hikeLocation,
+      length: this.state.length,
+      stars: this.state.stars,
+      summary:this.state.summary,
+      completed: false,
+      public: false,
+      date_completed:"",
+      completed_message: ""
+    }
+    console.log(hikeCard)
+    // this.addHikeCard(hikeCard)
+  }
+
+  addHikeCard = hikeCard => {
+    APIManager.addEntry("hikes", hikeCard)
+      // .then(() => APIManager.getAllEntries("hikes"))
+      // .then(hikes => this.setState({ hikes: hikes }))
+  }
+
+
   render() {
     return (
       <React.Fragment>
@@ -60,7 +90,7 @@ export default class Search extends Component {
         <div className="searchResultHolder">
           {
             this.state.trails.map(trail =>
-              <SearchResultCard key={trail.id} trail={trail} />
+              <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard}/>
             )
           }
 

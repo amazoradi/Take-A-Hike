@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
-import { Navbar, NavbarBrand, Nav, NavItem } from 'reactstrap';
 import { Input, Menu, Segment } from 'semantic-ui-react'
 
 
