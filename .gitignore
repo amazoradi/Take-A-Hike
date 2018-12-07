@@ -3,7 +3,7 @@
 # dependencies
 /node_modules
 /api
-/semantic
+/src/semantic
 /semantic.json
 /.pnp
 .pnp.js

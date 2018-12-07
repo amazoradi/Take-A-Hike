@@ -1,15 +1,16 @@
 .searchField {
-  width: 50%;
-  /* display: flex; */
-  margin: 30px 25%;
+  width: 600px;
+  margin: 30px auto;
+  text-align: center;
 }
 
 .trailCard {
   border: 1px solid black;
-  margin: 15px 20%;
+  margin: 20px auto;
   padding: 10px;
   background-color: whitesmoke;
   display: flex;
+  width: 600px;
 }
 
 .trailCard img {

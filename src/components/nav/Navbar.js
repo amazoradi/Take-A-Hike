@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
-import { Navbar, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import { Input, Menu, Segment } from 'semantic-ui-react'
 
 
 class HikeNavBar extends Component {
+
+  state = { activeItem: 'home' }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   isAuthenticated = () => (sessionStorage.getItem("userId") !== null || localStorage.getItem("userId") !== null)
 
@@ -13,30 +17,31 @@ class HikeNavBar extends Component {
   }
 
   noNavonLogin = () => {
+    const { activeItem } = this.state
     if (this.isAuthenticated()) {
       return (
-        <div>
-          <Navbar color="light" light expand="md">
-            <NavbarBrand >Take a Hike</NavbarBrand>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Link to="/" className="nav-link">Search</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/itinerary" className="nav-link">Itinerary</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/myHikes" className="nav-link">My Hikes</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/messages" className="nav-link">Messages</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/welcome" className="nav-link" onClick={()=> this.logoutUser()}>Logout</Link>
-              </NavItem>
-            </Nav>
-          </Navbar>
-        </div>
+        < div >
+          <Menu pointing secondary>
+            <Menu.Item name='Take A Hike' />
+            <Menu.Menu position='right'>
+
+              <Menu.Item name='search' active={activeItem === 'search'} as={Link} to="/" onClick={this.handleItemClick} />
+
+              <Menu.Item name='itinerary' active={activeItem === 'itinerary'} as={Link} to="/itinerary" onClick={this.handleItemClick} />
+
+              <Menu.Item name='My Hikes' active={activeItem === 'My Hikes'} as={Link} to="/myHikes" onClick={this.handleItemClick} />
+
+              <Menu.Item name='messages' active={activeItem === 'messages'} as={Link} to="/messages" onClick={this.handleItemClick} />
+
+              <Menu.Item name='Logout' active={activeItem === 'Logout'} as={Link} to="/welcome" onClick={() => {
+                this.handleItemClick()
+                this.logoutUser()
+              }} />
+
+            </Menu.Menu>
+          </Menu>
+        </div >
+
       )
     } else {
       return (

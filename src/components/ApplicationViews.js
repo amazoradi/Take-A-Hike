@@ -47,7 +47,7 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
-            return <Messages {...props} getAllUsers={this.getAllUsers}/>
+            return <Messages {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
             return <Redirect to="/welcome" />
           }

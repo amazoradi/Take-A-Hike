@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 import APIManager from "../../modules/APIManager"
 import "./search.css";
 import parameters from "../../config/callParams"
+import { Input, Icon } from 'semantic-ui-react'
+import SearchResultCard from './SearchCard';
 
 export default class Search extends Component {
   state = {
@@ -10,7 +11,13 @@ export default class Search extends Component {
     trails: [],
     location: "",
     locationLat: "",
-    locationLong: ""
+    locationLong: "",
+    hikes: [],
+    name: "",
+    hikeLocation: "",
+    length: "",
+    stars: "",
+    summary: "",
   }
 
   getHardCodedTrails = () => {
@@ -45,40 +52,49 @@ export default class Search extends Component {
       .catch(error => console.error('Error:', error));
   }
 
+  constructHikeCard = () => {
+    const hikeCard = {
+      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+      name: this.state.name,
+      hikeLocation: this.state.hikeLocation,
+      length: this.state.length,
+      stars: this.state.stars,
+      summary:this.state.summary,
+      completed: false,
+      public: false,
+      date_completed:"",
+      completed_message: ""
+    }
+    console.log(hikeCard)
+    // this.addHikeCard(hikeCard)
+  }
+
+  addHikeCard = hikeCard => {
+    APIManager.addEntry("hikes", hikeCard)
+      // .then(() => APIManager.getAllEntries("hikes"))
+      // .then(hikes => this.setState({ hikes: hikes }))
+  }
+
+
   render() {
     return (
       <React.Fragment>
         <div className="searchField">
           <h2>Search for a hike in a city near you</h2>
-          <InputGroup >
-            <InputGroupAddon addonType="prepend"><Button onClick={() => {
-              this.getHardCodedLocations(this.state.location)
-            }}
-            >Search</Button></InputGroupAddon>
-            <Input placeholder="City Name" id="location" onChange={this.handleFieldChange} />
-          </InputGroup>
+          <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
+          <Icon name='search' link onClick={() => {
+            this.getHardCodedLocations(this.state.location)
+          }}/>
         </div>
         <div className="searchResultHolder">
           {
             this.state.trails.map(trail =>
-              <div key={trail.id} className="trailCard">
-                <img src={trail.imgSqSmall} atl={trail.imageUrl}></img>
-                <div className="cardText">
-                  <h2>{trail.name}</h2>
-                  <h4>{trail.location}</h4>
-                  <h5>{trail.length} miles. {trail.stars} stars out of 5</h5>
-                  <p>{trail.summary}</p>
-                  <div className="cardButtons">
-                    <button className="btn">Add to my Itinerary</button>
-                    <button className="btn">Add to My Hikes</button>
-                  </div>
-                </div>
-              </div>
+              <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard}/>
             )
           }
 
         </div>
       </React.Fragment>
-    )
+)
   }
 }
