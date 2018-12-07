@@ -15,7 +15,11 @@ export default class EditMessageForm extends Component {
 
     return (
       <div>
-        <Button icon="pencil" onClick={this.show('blurring')}></Button>
+       
+        <Button icon="pencil" onClick={this.show('blurred')
+          
+        
+        }></Button>
 
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Edit Your Message</Modal.Header>
@@ -33,6 +37,7 @@ export default class EditMessageForm extends Component {
             <Icon name='image' />
             <input onChange={this.props.handleEditFieldChange} id="editMessageImg" defaultValue={this.props.message.imgUrl} />
           </Input>
+          <input id="editId" className="hide" defaultValue={this.props.message.id} onChange={this.props.handleEditFieldChange} />
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
@@ -44,7 +49,10 @@ export default class EditMessageForm extends Component {
               icon='checkmark'
               labelPosition='right'
               content="Save Edits"
-              onClick={this.close}
+              onClick={()=> {
+                this.props.handleNewEdit(this.props.message.message, this.props.message.imgUrl, this.props.message.id)
+                this.props.constructEditedMessage()
+                this.close()}}
             />
           </Modal.Actions>
         </Modal>

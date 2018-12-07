@@ -99,10 +99,18 @@ export default class Messages extends Component {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       message: this.state.editMessageText,
       imgUrl: this.state.editMessageImg,
-      id:this.state.editId
+      id: this.state.editId
     }
     console.log(editedMessage)
     this.editMessage(editedMessage.id, editedMessage)
+  }
+
+  handleNewEdit = (editMessageText, editMessageImg, editId) => {
+    this.setState({
+      editMessageText: editMessageText,
+      editMessageImg: editMessageImg,
+      editId: editId,
+    })
   }
 
 
@@ -172,7 +180,7 @@ export default class Messages extends Component {
                 <Button icon className="btn deleteButton" onClick={() => this.deleteMessage(`${message.id}`)}>
                   <Icon name='trash alternate outline' />
                 </Button>
-                <EditMessageForm message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} constructEditedMessage={this.constructEditedMessage}/>
+                <EditMessageForm message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} />
               </div>
             )
           }
