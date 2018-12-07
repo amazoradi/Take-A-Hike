@@ -21,7 +21,7 @@ export default class MessageCard extends Component {
     
       <h2 className={this.state.hideEditForm ? "messageUserName" : "hide"}>{this.props.message.user.name}</h2>
       <div className={this.state.hideEditForm ? "messageContent" : "hide"}>
-        <img src={this.props.message.imgUrl} alt="pretty picture"></img>
+        <img src={this.props.message.imgUrl} alt=""></img>
         <p>{this.props.message.message}</p>
       </div>
         <p className={this.state.hideEditForm ? "messageTime" : "hide"}><Moment format="MM-DD-YYYY hh:mm a">{this.props.message.time}</Moment></p>

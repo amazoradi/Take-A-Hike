@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Icon, Header, Image, Modal, Input, Form, Checkbox } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 
 export default class EditMessageForm extends Component {
 
@@ -34,13 +34,4 @@ export default class EditMessageForm extends Component {
   }
 
 }
-
-
-{/* <div className={this.props.hideEditForm ? null : "hide"}>
-  <Button icon="pencil" onClick={() => {
-    this.props.handleEditClick()
-    this.props.handleNewEdit(this.props.message.message, this.props.message.imgUrl, this.props.message.id)
-  }
-  }></Button>
-</div> */}
 

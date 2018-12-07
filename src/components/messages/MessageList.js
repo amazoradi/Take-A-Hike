@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
 import "./messages.css"
-import Moment from 'react-moment';
-import { Button, Icon, Header, Image, Modal, Input } from 'semantic-ui-react'
-import EditMessageForm from './EditMessageForm';
-import MessageButtons from './MessageButtons';
 import MessageCard from './MessageCard';
+import NewMessageForm from './NewMessageForm';
 
 export default class Messages extends Component {
 
@@ -20,8 +17,7 @@ export default class Messages extends Component {
     editMessageImg: "",
     editId: "",
     userName: "",
-    currentUserId: this.props.getCurrentUser(),
-    open: false,
+    currentUserId: this.props.getCurrentUser()
   }
 
   componentDidMount() {
@@ -115,57 +111,12 @@ export default class Messages extends Component {
     })
   }
 
-
-  // modal functions
-  show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => this.setState({ open: false })
-
-
   render() {
-    const { open, dimmer } = this.state
-
+    
     return (
       <React.Fragment>
-        <div>
+        <NewMessageForm handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} />
 
-          <Button onClick={this.show('blurring')}>New Message</Button>
-
-          <Modal dimmer={dimmer} open={open} onClose={this.close}>
-            <Modal.Header>Create a New Message</Modal.Header>
-            <Modal.Content /*image*/>
-              {/* <Image wrapped size='small' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' /> */}
-              <Modal.Description>
-                <Header>Take A Hike, Leave a Message</Header>
-                <div>
-                  <Input icon placeholder='Message'>
-                    <input onChange={this.handleFieldChange} id="messageText"/>
-                    <Icon name='pencil alternate' />
-                  </Input>
-                  <br />
-                  <br />
-                  <Input iconPosition='left' placeholder='Image'>
-                    <Icon name='image' />
-                    <input onChange={this.handleFieldChange} id="messageImg" />
-                  </Input>
-                </div>
-              </Modal.Description>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color='black' onClick={this.close}>
-                Cancel
-            </Button>
-              <Button
-                positive
-                icon='checkmark'
-                labelPosition='right'
-                content="Save"
-                onClick={ () => {
-                  this.constructNewMessage()
-                  this.close()}}
-              />
-            </Modal.Actions>
-          </Modal>
-        </div>
         <h2>{this.state.userName}&#39;s Messages</h2>
         <div className="messageHolder">
           {
@@ -179,22 +130,5 @@ export default class Messages extends Component {
       }
     }
     
-    // message buttons
-  // <div className={this.state.hideEditForm ? "buttonHolder" : "hide"}>
-  //           <Button icon className={this.state.hideEditForm ? "btn deleteButton" : "hide"} onClick={() => this.deleteMessage(`${message.id}`)}>
-  //             <Icon name='trash alternate outline' />
-  //           </Button>
-  //         </div>
-  //         <EditMessageForm message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} />
-       
-// messagecard
-// <div key={message.id} className="messageCard">
 
-//   <h2 /*className={this.state.hideEditForm ? "messageUserName" : "hide"}*/>{message.user.name}</h2>
-//   <div /*className={this.state.hideEditForm ? "messageContent" : "hide"}*/>
-//     <img src={message.imgUrl} alt="pretty picture"></img>
-//     <p>{message.message}</p>
-//   </div>
-//   <p><Moment format="MM-DD-YYYY hh:mm a">{message.time}</Moment></p>
-//   <MessageButtons message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} handleEditClick={this.handleEditClick} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
-// </div> 
+    
