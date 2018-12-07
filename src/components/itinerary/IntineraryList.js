@@ -4,14 +4,21 @@ import { Button } from 'semantic-ui-react';
 
 export default class Itinerary extends Component {
   state={
-    hikes:[]
+    hikes:[],
+    currentUserId: this.props.getCurrentUser()
   }
 
  componentDidMount() {
     const newState={}
-    APIManager.getAllEntries("hikes", "/?completed=false")
+    APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`)
       .then(hikes => newState.hikes = hikes)
-      .then(() => this.setState(newState))
+      .then(() => this.setState(newState))    
+  }
+
+  deleteItineraryItem = id => {
+    APIManager.deleteEntry("hikes", id)
+      .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`) )
+      .then( hikes => this.setState({ hikes:hikes }))
   }
 
   render() {
@@ -28,7 +35,7 @@ export default class Itinerary extends Component {
               <p>{hike.summary}</p> 
               </div>
               <div className="cardButtons">
-                <Button className="btn" onClick={() => console.log("delete")} >Remove</Button>
+                <Button className="btn" onClick={() => this.deleteItineraryItem(`${hike.id}`)} >Remove</Button>
                 <Button className="btn" onClick={() => console.log("to gikes")}>Add to My Hikes</Button>
               </div>
               </div>

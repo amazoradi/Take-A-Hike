@@ -33,14 +33,14 @@ export default class ApplicationViews extends Component {
         }} /> 
         <Route exact path="/itinerary" render={(props) => {
           if (this.isAuthenticated()) {
-            return <Itinerary {...props} getAllUsers={this.getAllUsers} />
+            return <Itinerary {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
             return <Redirect to="/welcome" />
           }
         }} />
         <Route exact path="/myHikes" render={(props) => {
           if (this.isAuthenticated()) {
-            return <MyHikeList {...props} getAllUsers={this.getAllUsers} />
+            return <MyHikeList {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
           } else {
             return <Redirect to="/welcome" />
           }
