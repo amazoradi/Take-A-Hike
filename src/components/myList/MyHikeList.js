@@ -21,6 +21,13 @@ export default class MyHikeList extends Component {
       .then( hikes => this.setState({hikes:hikes}))
   }
 
+  addToMyItinerary = (id, hikeCard) => {
+    const newState= {}
+    APIManager.editEntry("hikes", id, hikeCard)
+      .then(() => APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`))
+      .then(hikes => newState.hikes = hikes)
+      .then( () => this.setState(newState))
+  }
 
   render() {
     return (
@@ -37,7 +44,7 @@ export default class MyHikeList extends Component {
               </div>
               <div className="cardButtons"> 
                 <Button className="btn" onClick={() => console.log("heloooo 1")}>Add Message</Button>
-                <Button className="btn" onClick={() => console.log("to itinerary")}>Add to my Itinerary</Button>
+                <Button className="btn" onClick={() => this.addToMyItinerary(`${hike.id}`, {"completed": false})}>Add to my Itinerary</Button>
                 <Button className="btn" onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>
               </div>
             </div>

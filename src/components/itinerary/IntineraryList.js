@@ -18,7 +18,15 @@ export default class Itinerary extends Component {
   deleteItineraryItem = id => {
     APIManager.deleteEntry("hikes", id)
       .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`) )
-      .then( hikes => this.setState({ hikes:hikes }))
+      .then( hikes => this.setState({ hikes:hikes })) 
+  }
+
+  addToMyHikes = (id, hikeCard) => {
+    const newState = {}
+    APIManager.editEntry("hikes", id, hikeCard)
+      .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`))
+      .then(hikes => newState.hikes = hikes)
+      .then( ()=> this.setState(newState))
   }
 
   render() {
@@ -36,7 +44,7 @@ export default class Itinerary extends Component {
               </div>
               <div className="cardButtons">
                 <Button className="btn" onClick={() => this.deleteItineraryItem(`${hike.id}`)} >Remove</Button>
-                <Button className="btn" onClick={() => console.log("to gikes")}>Add to My Hikes</Button>
+                <Button className="btn" onClick={() => this.addToMyHikes(`${hike.id}`, {"completed": true})}>Add to My Hikes</Button>
               </div>
               </div>
               )
