@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
+import MyHikeMessage from "./MyHikeMessage"
+import 'moment-timezone';
 
 export default class MyHikeList extends Component {
   state = {
@@ -8,8 +10,8 @@ export default class MyHikeList extends Component {
     currentUserId: this.props.getCurrentUser(),
     completed_message: "",
     date_completed: "",
-    open: false,
-    editId: ""
+    editId: "",
+    hideMessageForm: true
   }
 
   componentDidMount() {
@@ -36,8 +38,8 @@ export default class MyHikeList extends Component {
   handleFieldChange = evt => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
-    this.setState(stateToChange)
     console.log(stateToChange)
+    this.setState(stateToChange)
   }
 
   constructNewMessage = () => {
@@ -47,6 +49,7 @@ export default class MyHikeList extends Component {
       date_completed: this.state.date_completed,
       editId: this.state.editId
     }
+    console.log("message to be added", message)
     this.addMessageToCard(message.editId, message)
   }
 
@@ -59,11 +62,22 @@ export default class MyHikeList extends Component {
   }
 
 
-  show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => this.setState({ open: false })
+  handleNewEdit = (completed_message, date_completed, editId) => {
+    this.setState({
+      completed_message: completed_message,
+      date_completed: date_completed,
+      editId: editId,
+    })
+  }
+
+  handleAddMessageClick = () => {
+    const currentState = this.state.hideMessageForm;
+    this.setState({ hideMessageForm: !currentState });
+  };
+
 
   render() {
-    const { open, dimmer } = this.state
+
     return (
       <div>
         {
@@ -75,43 +89,25 @@ export default class MyHikeList extends Component {
                 <h4>{hike.location}</h4>
                 <h5>{hike.length} miles. {hike.stars} stars out of 5</h5>
                 <p>{hike.summary}</p>
-                <p>Message: {hike.completed_message}</p>
-                <p>Last Completed On: {hike.date_completed}</p>
+                <div className={this.state.hideMessageForm ? "cardMessage" : "hide"}>
+                  <p>Message: {hike.completed_message}</p>
+                  <p>Last Completed On:{hike.date_completed}</p>
+                </div>
               </div>
-              <div className="cardButtons">
-
-
-                <Button onClick={this.show('blurring')}>Add Message</Button>
-                <Modal dimmer={dimmer} open={open} onClose={this.close}>
-                  <Modal.Header>Select a Photo</Modal.Header>
-                  <Modal.Content>
-                    <Modal.Description>
-                      <Header>Remember this hike by adding a message</Header>
-                      <input id="completed_message" type="text" onChange={this.handleFieldChange} />
-                      <input type="date" id="date_completed" onChange={this.handleFieldChange} />
-                      <input type="text" className="hide" id="editId" onChange={this.handleFieldChange} defaultValue={hike.id} />
-                    </Modal.Description>
-                  </Modal.Content>
-                  <Modal.Actions>
-                    <Button color='black' onClick={this.close}>
-                      Cancel
-            </Button>
-                    <Button
-                      positive
-                      icon='checkmark'
-                      labelPosition='right'
-                      content="Add Message"
-                      onClick={() => {
-                        this.constructNewMessage(`${hike.id}`)
-                        this.close()
-                      }}
-                    />
-                  </Modal.Actions>
-                </Modal>
-                <Button className="btn" onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to my Itinerary</Button>
-                <Button className="btn" onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>
+              <div className={this.state.hideMessageForm ? "cardButtons" : "hide"}>
+                <Button onClick={() => {
+                  this.handleNewEdit(hike.completed_message, hike.date_completed, hike.id)
+                  this.handleAddMessageClick()
+                }}>
+                  Add Message</Button>
+              </div>
+              <MyHikeMessage key={hike.id} hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} hideMessageForm={this.state.hideMessageForm} handleAddMessageClick={this.handleAddMessageClick} />
+              <div className={this.state.hideMessageForm ? "cardButtons" : "hide"}>
+                <Button className={this.state.hideMessageForm ? null : "hide"} onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to my Itinerary</Button>
+                <Button className={this.state.hideMessageForm ? null : "hide"} onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>
               </div>
             </div>
+
           )
         }
       </div>

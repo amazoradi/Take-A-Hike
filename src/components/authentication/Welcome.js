@@ -48,7 +48,6 @@ export default class Welcome extends Component {
       location: this.state.registerLocation
     }
     this.registerNewUser(user)
-      .then(() => console.log(user))
   }
 
   registerNewUser = user => {

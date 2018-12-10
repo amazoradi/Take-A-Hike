@@ -52,6 +52,19 @@ export default class Search extends Component {
       .catch(error => console.error('Error:', error));
   }
 
+  getAnyLocation = (locationName) => {
+    const newState ={}
+    return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
+    .then( location => {
+      newState.locationLat = location.results.geometry.location.lat
+      newState.locationLong = location.results.geometry.location.lng
+      console.log(location, newState)
+    })
+    // .then( () => this.setState(newState))
+    
+      // .then(() => this.getForgeinTrails())
+  }
+
   constructHikeCard = () => {
     const hikeCard = {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
@@ -84,6 +97,7 @@ export default class Search extends Component {
           <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
           <Icon name='search' link onClick={() => {
             this.getHardCodedLocations(this.state.location)
+            // this.getAnyLocation(this.state.location)
           }}/>
         </div>
         <div className="searchResultHolder">
