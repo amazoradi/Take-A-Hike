@@ -16,3 +16,15 @@ code {
 .hide {
   display: none;
 }
+
+.hikeCard {
+  border: 1px solid black;
+  background-color: whitesmoke;
+  width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.hikeCard Button {
+  margin: 20px;
+}

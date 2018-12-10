@@ -47,7 +47,7 @@ export default class Messages extends Component {
   addNewMessage = newMessage => {
     APIManager.addEntry("messages", newMessage)
       .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
-      .then(messages => this.setState({messages: messages}))
+      .then(messages => this.setState({ messages: messages }))
   }
 
   //constructor function for a a new mesage
@@ -62,12 +62,12 @@ export default class Messages extends Component {
     // if (this.state.messageText === "" || this.state.messageText === " ") {
     //   alert("Please enter a message")
     // } else {
-      this.addNewMessage(message)
+    this.addNewMessage(message)
     // }
   }
 
   //delete message
-  
+
   deleteMessage = id => {
     APIManager.deleteEntry("messages", id)
       .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
@@ -83,13 +83,11 @@ export default class Messages extends Component {
   }
 
   editMessage = (id, message) => {
-    const newState ={}
+    const newState = {}
     APIManager.editEntry("messages", id, message)
       .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
-
-
   }
 
   constructEditedMessage = () => {
@@ -99,7 +97,6 @@ export default class Messages extends Component {
       imgUrl: this.state.editMessageImg,
       id: this.state.editId
     }
-    console.log(editedMessage)
     this.editMessage(editedMessage.id, editedMessage)
   }
 
@@ -112,7 +109,7 @@ export default class Messages extends Component {
   }
 
   render() {
-    
+
     return (
       <React.Fragment>
         <NewMessageForm handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} />
@@ -126,9 +123,8 @@ export default class Messages extends Component {
           }
         </div>
       </React.Fragment>
-        )
-      }
-    }
-    
+    )
+  }
+}
 
-    
+

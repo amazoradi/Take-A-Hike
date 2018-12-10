@@ -16,7 +16,7 @@ export default class SearchResultCard extends Component {
       name: this.props.trail.name,
       hikeLocation: this.props.trail.location,
       length: this.props.trail.length,
-      stars: this.props.trail.length,
+      stars: this.props.trail.stars,
       summary: this.props.trail.summary,
       completed: false,
       public: false,

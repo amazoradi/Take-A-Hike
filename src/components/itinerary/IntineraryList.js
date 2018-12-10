@@ -34,7 +34,7 @@ export default class Itinerary extends Component {
       <div>
       {
         this.state.hikes.map(hike => 
-          <div key={hike.id}>
+          <div key={hike.id} className="hikeCard">
             <img src={hike.imageUrl} alt=""></img>
             <div className="cardText">
               <h2>{hike.name}</h2>
