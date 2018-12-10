@@ -22,8 +22,7 @@ export default class NewMessageForm extends Component {
 
         <Modal dimmer={dimmer} open={open} onClose={this.close}>
           <Modal.Header>Create a New Message</Modal.Header>
-          <Modal.Content /*image*/>
-            {/* <Image wrapped size='small' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' /> */}
+          <Modal.Content>
             <Modal.Description>
               <Header>Take A Hike, Leave a Message</Header>
               <div>

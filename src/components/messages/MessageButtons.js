@@ -24,8 +24,7 @@ export default class MessageButtons extends Component {
                 this.props.handleEditClick()
               }}
             >
-             
-                </Button>
+            </Button>
           </div>
         </React.Fragment>
       )

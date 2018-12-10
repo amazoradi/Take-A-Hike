@@ -20,8 +20,8 @@ export default class ApplicationViews extends Component {
     return currentUser
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <React.Fragment>
 
         <Route exact path="/" render={(props) => {
@@ -30,10 +30,10 @@ export default class ApplicationViews extends Component {
           } else {
             return <Redirect to="/welcome" />
           }
-        }} /> 
+        }} />
         <Route exact path="/itinerary" render={(props) => {
           if (this.isAuthenticated()) {
-            return <Itinerary {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
+            return <Itinerary {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
           } else {
             return <Redirect to="/welcome" />
           }
@@ -47,14 +47,14 @@ export default class ApplicationViews extends Component {
         }} />
         <Route exact path="/messages" render={(props) => {
           if (this.isAuthenticated()) {
-            return <Messages {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
+            return <Messages {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
           } else {
             return <Redirect to="/welcome" />
           }
         }} />
         <Route exact path="/welcome" render={(props) => {
           return (
-            <Welcome {...props} getAllUsers={this.getAllUsers}/>
+            <Welcome {...props} getAllUsers={this.getAllUsers} />
           )
         }} />
 

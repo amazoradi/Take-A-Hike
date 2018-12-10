@@ -4,8 +4,6 @@ import { Button, Form } from 'semantic-ui-react'
 export default class EditMessageForm extends Component {
 
   render() {
-
-
     return (
       <React.Fragment>
         <div >

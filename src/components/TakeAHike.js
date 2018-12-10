@@ -5,9 +5,7 @@ import './TakeAHike.css';
 
 
 export default class TakeAHike extends Component {
-
-
-  
+ 
   render() {
     return (
       <React.Fragment>
