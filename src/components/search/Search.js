@@ -5,6 +5,7 @@ import parameters from "../../config/callParams"
 import { Input, Icon } from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
 import SimpleMap from './SearchResultMap';
+import GoogleMapsContainer from './SearchResultMap'
 
 export default class Search extends Component {
   state = {
@@ -31,7 +32,7 @@ export default class Search extends Component {
       .then(trails => newState.trails = trails)
       .then(() => this.setState(newState))
   }
- 
+
   getForgeinTrails = () => {
     const newState = {}
     APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&maxDistance=30&maxResults=10&key=${parameters.hikingProject}`)
@@ -65,11 +66,11 @@ export default class Search extends Component {
         // newState.locationLong = location.results[0].geometry.location.lng
         newState.lat = location.results[0].geometry.location.lat
         newState.lng = location.results[0].geometry.location.lng
-      
+
       })
       // .then(() => this.setState(newState))
-      .then(() => this.setState( {center : newState}))
-      .then(()=> console.log(this.state.center))
+      .then(() => this.setState({ center: newState }))
+      .then(() => console.log(this.state.center))
 
       .then(() => this.getForgeinTrails())
   }
@@ -95,15 +96,6 @@ export default class Search extends Component {
     APIManager.addEntry("hikes", hikeCard)
   }
 
-//  addMap = () => {
-//   //  if (this.state.locationLat !== "" || this.state.locationLong !== ""){
-//     return (
-     
-//       <SimpleMap />
-//       )
-//   //  }
-//  }
-
   render() {
     return (
       <React.Fragment>
@@ -113,20 +105,19 @@ export default class Search extends Component {
           <Icon name='search' link onClick={() => {
             // this.getHardCodedLocations(this.state.location)
             this.getAnyLocation(this.state.location)
-            // this.addMap()
-          }}/>
+          }} />
         </div>
         <div className="searchResultHolder">
           {
             this.state.trails.map(trail =>
-              <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard}/>
+              <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard} />
             )
           }
         </div>
-        <SimpleMap center={this.state.center}/>
-        
+        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} />
+
       </React.Fragment>
-)
+    )
   }
 }
 
