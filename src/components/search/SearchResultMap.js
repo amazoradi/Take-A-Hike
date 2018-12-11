@@ -1,3 +1,46 @@
+import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
+import parameters from "../../config/callParams"
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+class SimpleMap extends Component {
+
+ 
+
+  static defaultProps = {
+    defaultCenter: {
+      lat: 34.4208,
+      lng: -119.6982
+    },
+    zoom: 11
+  };
+
+  render() {
+    console.log("in render", this.props.center)
+    console.log("default center", this.props.defaultCenter)
+    return (
+      // Important! Always set the container height explicitly
+      <div style={{ height: '100vh', width: '100%' }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: parameters.google }}
+          center={this.props.center}
+          defaultZoom={this.props.zoom}
+          
+        >
+          {/* <AnyReactComponent
+            lat={59.955413}
+            lng={30.337844}
+            text={'Kreyser Avrora'}
+          /> */}
+        </GoogleMapReact>
+      </div>
+    );
+  }
+}
+
+export default SimpleMap;
+
 // import React from 'react';
 // import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 // import parameters from "../../config/callParams"
@@ -39,7 +82,7 @@
 
 //     var points = [
 //       { lat: 39.648209, lng: -75.711185 }
-//       { lat: `${this.props.locationLat}`, lng: `${this.props.locationLong}` }
+      
 //     ]
 //     var bounds = new this.props.google.maps.LatLngBounds();
 //     for (var i = 0; i < points.length; i++) {
@@ -77,5 +120,3 @@
 //   export default GoogleApiWrapper({
 //     apiKey: (parameters.google)
 // }) (GoogleMapsContainer)
-
-

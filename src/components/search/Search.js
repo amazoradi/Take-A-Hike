@@ -4,6 +4,7 @@ import "./search.css";
 import parameters from "../../config/callParams"
 import { Input, Icon } from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
+import SimpleMap from './SearchResultMap';
 
 export default class Search extends Component {
   state = {
@@ -18,6 +19,10 @@ export default class Search extends Component {
     length: "",
     stars: "",
     summary: "",
+    center: {
+      lat: "",
+      lng: ""
+    }
   }
 
   getHardCodedTrails = () => {
@@ -29,7 +34,7 @@ export default class Search extends Component {
  
   getForgeinTrails = () => {
     const newState = {}
-    APIManager.getSearchedHikes(`?lat=${this.state.locationLat}&lon=${this.state.locationLong}&maxDistance=30&maxResults=10&key=${parameters.hikingProject}`)
+    APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&maxDistance=30&maxResults=10&key=${parameters.hikingProject}`)
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
   }
@@ -56,10 +61,16 @@ export default class Search extends Component {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
       .then(location => {
-        newState.locationLat = location.results[0].geometry.location.lat
-        newState.locationLong = location.results[0].geometry.location.lng
+        // newState.locationLat = location.results[0].geometry.location.lat
+        // newState.locationLong = location.results[0].geometry.location.lng
+        newState.lat = location.results[0].geometry.location.lat
+        newState.lng = location.results[0].geometry.location.lng
+      
       })
-      .then(() => this.setState(newState))
+      // .then(() => this.setState(newState))
+      .then(() => this.setState( {center : newState}))
+      .then(()=> console.log(this.state.center))
+
       .then(() => this.getForgeinTrails())
   }
 
@@ -84,6 +95,15 @@ export default class Search extends Component {
     APIManager.addEntry("hikes", hikeCard)
   }
 
+//  addMap = () => {
+//   //  if (this.state.locationLat !== "" || this.state.locationLong !== ""){
+//     return (
+     
+//       <SimpleMap />
+//       )
+//   //  }
+//  }
+
   render() {
     return (
       <React.Fragment>
@@ -93,6 +113,7 @@ export default class Search extends Component {
           <Icon name='search' link onClick={() => {
             // this.getHardCodedLocations(this.state.location)
             this.getAnyLocation(this.state.location)
+            // this.addMap()
           }}/>
         </div>
         <div className="searchResultHolder">
@@ -101,8 +122,9 @@ export default class Search extends Component {
               <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard}/>
             )
           }
-
         </div>
+        <SimpleMap center={this.state.center}/>
+        
       </React.Fragment>
 )
   }
