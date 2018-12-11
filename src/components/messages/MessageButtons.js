@@ -8,7 +8,7 @@ export default class MessageButtons extends Component {
     if (this.props.message.userId === +sessionStorage.getItem("userId") || this.props.message.userId === +localStorage.getItem("userId")) {
       return (
         <React.Fragment>
-          <div className={this.props.hideEditForm ? "edit__button btn btn_small" : "hide"} >
+          <div className={this.props.hideEditForm ? "edit__button btn messageButtons" : "hide"} >
             <Button icon="pencil" className={this.props.hideEditForm ? "edit__button btn btn_small" : "hide"}
               onClick={() => {
                 this.props.handleEditClick()
@@ -17,7 +17,7 @@ export default class MessageButtons extends Component {
             ></Button>
           </div>
           <EditMessageForm message={this.props.message} hideEditForm={this.props.hideEditForm} handleFieldChange={this.props.handleFieldChange} constructNewMessage={this.props.constructNewMessage} constructEditedMessage={this.props.constructEditedMessage} handleEditClick={this.props.handleEditClick} handleEditFieldChange={this.props.handleEditFieldChange} />
-          <div className={this.props.hideEditForm ? "delete__button btn btn_small" : "hide"}>
+          <div className={this.props.hideEditForm ? "delete__button btn messageButtons" : "hide"}>
             <Button icon="trash"
               onClick={() => {
                 this.props.deleteMessage(`${this.props.message.id}`)

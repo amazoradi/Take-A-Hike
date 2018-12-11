@@ -1,15 +1,15 @@
 .messageCard {
-  border: 1px solid dodgerblue;
-  background-color: turquoise;
+  /* border: 1px solid dodgerblue; */
+  /* background-color: turquoise; */
   padding: 20px;
-  margin: 15px 20%;
-  width: 60%;
+  margin: 15px 10%;
+  width: 35%;
   /* height: 200px; */
 }
 
 .messageCard img {
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
 }
 
 .messageContent {
@@ -25,4 +25,33 @@
 }
 .messageContent img {
   padding: 5px;
+  width: 100px;
+  height: auto;
+}
+
+
+.usercard {
+    text-align: right;
+    margin: 15px 15px 15px 55%;
+    background-color: #9cb3d2;
+    border: 1px solid #464c5c;
+
+}
+
+.otherscard {
+  /* margin: 15px 20%; */
+  background-color: #c8b9a7;
+  border: 1px solid #93624f;
+}
+
+.messageBoard {
+  background-color: whitesmoke;
+}
+
+.messageButtons {
+  margin: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  /* display: inline */
 }

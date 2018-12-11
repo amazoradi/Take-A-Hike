@@ -29,7 +29,7 @@ export default class Search extends Component {
  
   getForgeinTrails = () => {
     const newState = {}
-    APIManager.getSearchedHikes(`?lat=${this.state.locationLat}&lon=${this.state.locationLong}&maxDistance=40&maxResults=25&key=${parameters.hikingProject}`)
+    APIManager.getSearchedHikes(`?lat=${this.state.locationLat}&lon=${this.state.locationLong}&maxDistance=30&maxResults=10&key=${parameters.hikingProject}`)
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
   }
@@ -53,41 +53,36 @@ export default class Search extends Component {
   }
 
   getAnyLocation = (locationName) => {
-    const newState ={}
+    const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
-    .then( location => {
-      newState.locationLat = location.results.geometry.location.lat
-      newState.locationLong = location.results.geometry.location.lng
-      console.log(location, newState)
-    })
-    // .then( () => this.setState(newState))
-    
-      // .then(() => this.getForgeinTrails())
+      .then(location => {
+        newState.locationLat = location.results[0].geometry.location.lat
+        newState.locationLong = location.results[0].geometry.location.lng
+      })
+      .then(() => this.setState(newState))
+      .then(() => this.getForgeinTrails())
   }
 
-  constructHikeCard = () => {
-    const hikeCard = {
-      userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
-      name: this.state.name,
-      hikeLocation: this.state.hikeLocation,
-      length: this.state.length,
-      stars: this.state.stars,
-      summary:this.state.summary,
-      completed: false,
-      public: false,
-      date_completed:"",
-      completed_message: ""
-    }
-    console.log(hikeCard)
-    // this.addHikeCard(hikeCard)
-  }
+  // constructHikeCard = () => {
+  //   const hikeCard = {
+  //     userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
+  //     name: this.state.name,
+  //     hikeLocation: this.state.hikeLocation,
+  //     length: this.state.length,
+  //     stars: this.state.stars,
+  //     summary:this.state.summary,
+  //     completed: false,
+  //     public: false,
+  //     date_completed:"",
+  //     completed_message: ""
+  //   }
+  //   console.log(hikeCard)
+  //   // this.addHikeCard(hikeCard)
+  // }
 
   addHikeCard = hikeCard => {
     APIManager.addEntry("hikes", hikeCard)
-      // .then(() => APIManager.getAllEntries("hikes"))
-      // .then(hikes => this.setState({ hikes: hikes }))
   }
-
 
   render() {
     return (
@@ -96,8 +91,8 @@ export default class Search extends Component {
           <h2>Search for a hike in a city near you</h2>
           <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
           <Icon name='search' link onClick={() => {
-            this.getHardCodedLocations(this.state.location)
-            // this.getAnyLocation(this.state.location)
+            // this.getHardCodedLocations(this.state.location)
+            this.getAnyLocation(this.state.location)
           }}/>
         </div>
         <div className="searchResultHolder">
@@ -112,3 +107,4 @@ export default class Search extends Component {
 )
   }
 }
+
