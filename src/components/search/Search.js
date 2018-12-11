@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
 import "./search.css";
 import parameters from "../../config/callParams"
-import { Input, Icon } from 'semantic-ui-react'
+import { Input, Icon, Dropdown, Divider, DropdownItem } from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
 import GoogleMapsContainer from './SearchResultMap'
+
+const searchOptions = [
+  { value: "null", text: "No Filter", id: "null" },
+  { value: "maxDistance", text: "Distance from Location", id: "searchParam" },
+  { value: "minLength", text: "Minimum Trail Length", id: "searchParam" },
+  { value: "minStars", text: "Star rating", id: "searchParam" },
+  {}
+]
 
 export default class Search extends Component {
   state = {
@@ -26,7 +34,9 @@ export default class Search extends Component {
     userCenter: {
       lat: "",
       lng: ""
-    }
+    },
+    searchParam: "",
+    searchValue:""
   }
 
   getHardCodedTrails = () => {
@@ -47,6 +57,42 @@ export default class Search extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
+    console.log("id:", evt.target.id, "value:", evt.target.value)
+  }
+
+  handleDropdownChange = (evt) => {
+    let value;
+    if (evt.target.className !== "text" && evt.target.firstChild.className !== "text"){
+      console.log("do nothing")
+    } else if(evt.target.className === "text"){
+      if (evt.target.innerText.includes("Distance from Location")){
+        value = "maxDistance"
+      } else if (evt.target.innerText.includes("Minimum Trail Length")){
+        value = "minLength"
+      } else if (evt.target.innerText.includes("Star rating")) {
+        value = "minStars"
+      }
+      console.log(value);
+    } else {
+      if (evt.target.firstChild.innerText.includes("Distance from Location")) {
+        value = "maxDistance"
+      } else if (evt.target.firstChild.innerText.includes("Minimum Trail Length")) {
+        value = "minLength"
+      } else if (evt.target.firstChild.innerText.includes("Star rating")){
+        value = "minStars"
+      }
+      console.log(value);
+    }
+    // console.log(evt.target.parentElement);
+    // console.log("look here", evt.target.value)
+    // console.log(searchOptions);
+    // if (evt.target.value !== undefined) {
+    //  value = evt.target.value;
+    // } else {
+    //  value = evt.target.innerText;
+    // }
+    // this.setState(stateToChange)
+    // console.log("id:", evt.target.id, "value:", evt.target.value)
   }
 
   getHardCodedLocations = (locationName) => {
@@ -87,6 +133,7 @@ export default class Search extends Component {
       .then(() => this.setState({ center: newState }))
   }
 
+
   render() {
     // this.getUserLocation()
     return (
@@ -97,6 +144,15 @@ export default class Search extends Component {
           <Icon name='search' link onClick={() => {
             // this.getHardCodedLocations(this.state.location)
             this.getAnyLocation(this.state.location)
+          }} />
+          <Divider />
+          <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange}/>
+         
+          <Input placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
+          <Icon name='search' link onClick={() => {
+            console.log("searchparam:", this.state.searchParam, "search value:", this.state.searchValue)
+            // this.getHardCodedLocations(this.state.location)
+            // this.getAnyLocation(this.state.location)
           }} />
         </div>
         <div className="searchResultHolder">
