@@ -36,12 +36,13 @@ class GoogleMapsContainer extends React.Component {
       'marginLeft': 'auto',
       'marginRight': 'auto'
     }
-
+    // console.log(this.props.trails) 
     return (
       <React.Fragment>
         <Map
           google={this.props.google}
           center={this.props.center}
+          // initialCenter={this.props.userCenter}
           zoom={
             11
           }
@@ -50,6 +51,7 @@ class GoogleMapsContainer extends React.Component {
           {this.props.trails.map(trail => (
 
             <Marker
+              key={trail.id}
               onClick={this.onMarkerClick}
               title={trail.name}
               position={{ lat: trail.latitude, lng: trail.longitude }}

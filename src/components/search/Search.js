@@ -4,7 +4,6 @@ import "./search.css";
 import parameters from "../../config/callParams"
 import { Input, Icon } from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
-import SimpleMap from './SearchResultMap';
 import GoogleMapsContainer from './SearchResultMap'
 
 export default class Search extends Component {
@@ -21,6 +20,10 @@ export default class Search extends Component {
     stars: "",
     summary: "",
     center: {
+      lat: "",
+      lng: ""
+    },
+    userCenter: {
       lat: "",
       lng: ""
     }
@@ -62,41 +65,30 @@ export default class Search extends Component {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
       .then(location => {
-        // newState.locationLat = location.results[0].geometry.location.lat
-        // newState.locationLong = location.results[0].geometry.location.lng
         newState.lat = location.results[0].geometry.location.lat
         newState.lng = location.results[0].geometry.location.lng
-
       })
-      // .then(() => this.setState(newState))
       .then(() => this.setState({ center: newState }))
-      .then(() => console.log(this.state.center))
-
       .then(() => this.getForgeinTrails())
   }
-
-  // constructHikeCard = () => {
-  //   const hikeCard = {
-  //     userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
-  //     name: this.state.name,
-  //     hikeLocation: this.state.hikeLocation,
-  //     length: this.state.length,
-  //     stars: this.state.stars,
-  //     summary:this.state.summary,
-  //     completed: false,
-  //     public: false,
-  //     date_completed:"",
-  //     completed_message: ""
-  //   }
-  //   console.log(hikeCard)
-  //   // this.addHikeCard(hikeCard)
-  // }
 
   addHikeCard = hikeCard => {
     APIManager.addEntry("hikes", hikeCard)
   }
 
+  getUserLocation = () => {
+    const newState = {}
+    let userId = this.props.getCurrentUser()
+    APIManager.getEntry("users", userId)
+      .then(user => {
+        newState.lat = user.center.lat
+        newState.lng = user.center.lng
+      })
+      .then(() => this.setState({ center: newState }))
+  }
+
   render() {
+    // this.getUserLocation()
     return (
       <React.Fragment>
         <div className="searchField">
@@ -110,11 +102,11 @@ export default class Search extends Component {
         <div className="searchResultHolder">
           {
             this.state.trails.map(trail =>
-              <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard} />
+              <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard} userCenter={this.state.userCenter} />
             )
           }
         </div>
-        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} />
+        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} />
 
       </React.Fragment>
     )

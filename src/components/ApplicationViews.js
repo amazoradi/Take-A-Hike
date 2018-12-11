@@ -26,7 +26,7 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/" render={(props) => {
           if (this.isAuthenticated()) {
-            return <Search {...props} getAllUsers={this.getAllUsers} />
+            return <Search {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
           } else {
             return <Redirect to="/welcome" />
           }
