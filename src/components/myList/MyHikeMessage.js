@@ -3,18 +3,14 @@ import { Button, Form, Rating } from 'semantic-ui-react'
 
 export default class MyHikeMessage extends Component {
 
-  state = {}
-
-  handleRate = (e, { rating, maxRating }) => this.setState({ rating, maxRating })
-  
   render() {
-    console.log(this.state)
+
     return (
       <div className={`${this.props.shownForm === this.props.hike.id ? null : 'hide'}`}  >
         <Form >
           <Form.Field>
-            <Rating icon='star' defaultRating={3} maxRating={5} onRate={this.handleRate}/>
-            <pre className="hide">{JSON.stringify(this.state, null, 2)}</pre>
+            <Rating icon='star' defaultRating={this.props.hike.user_rating} maxRating={5} onRate={this.props.handleRate} />
+            <pre className="hide">{JSON.stringify(this.props.rating, null, 2)}</pre>
           </Form.Field>
           <Form.Field >
             <label>Message</label>
@@ -33,6 +29,7 @@ export default class MyHikeMessage extends Component {
           <Button onClick={() => {
             this.props.handleEditClick()
             this.props.constructNewMessage()
+            console.log(this.props.rating)
           }}>Submit</Button>
         </Form>
       </div>

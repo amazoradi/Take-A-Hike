@@ -11,8 +11,9 @@ export default class MyHikeList extends Component {
     completed_message: "",
     date_completed: "",
     editId: "",
-    user_rating:"",
+    user_rating: "",
     shownForm: null,
+    rating: ''
   }
 
   componentDidMount() {
@@ -39,7 +40,6 @@ export default class MyHikeList extends Component {
   handleFieldChange = evt => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
-    console.log(stateToChange)
     this.setState(stateToChange)
   }
 
@@ -48,6 +48,7 @@ export default class MyHikeList extends Component {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       completed_message: this.state.completed_message,
       date_completed: this.state.date_completed,
+      user_rating: this.state.rating,
       editId: this.state.editId
     }
     console.log("message to be added", message)
@@ -87,6 +88,10 @@ export default class MyHikeList extends Component {
     }
   }
 
+  handleRate = (e, { rating }) => {
+    this.setState({ rating })
+  } 
+
   render() {
 
     return (
@@ -98,7 +103,7 @@ export default class MyHikeList extends Component {
               <div className="cardText">
                 <h2>{hike.name}</h2>
                 <h4>{hike.location}</h4>
-                <h5>{hike.length} miles. {hike.stars} stars out of 5</h5>
+                <h5>{hike.length} miles. {hike.user_rating} stars out of 5</h5>
                 <p>{hike.summary}</p>
                 <div className={this.state.shownForm ? "hide" : "cardMessage"}>
                   <p>Message: {hike.completed_message}</p>
@@ -107,11 +112,11 @@ export default class MyHikeList extends Component {
               </div>
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
                 <Button onClick={() => {
-                  this.handleEditClick(hike.completed_message, hike.date_completed, 5, hike.id)
+                  this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
                 }}>
                   Add Message</Button>
               </div>
-              <MyHikeMessage  hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} />
+              <MyHikeMessage hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} getUserRating={this.getUserRating} handleRate={this.handleRate} rating={this.state.rating} user_rating={this.state.user_rating} />
               
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
                 <Button onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to my Itinerary</Button>
