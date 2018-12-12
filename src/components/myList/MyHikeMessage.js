@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Rating } from 'semantic-ui-react'
 
 export default class MyHikeMessage extends Component {
 
-  render() {
+  state = {}
 
+  handleRate = (e, { rating, maxRating }) => this.setState({ rating, maxRating })
+  
+  render() {
+    console.log(this.state)
     return (
       <div className={this.props.hideMessageForm ? "hide" : null}>
-        <Form>
+        <Form >
+          <Form.Field>
+            <Rating icon='star' defaultRating={3} maxRating={5} onRate={this.handleRate}/>
+            <pre className="hide">{JSON.stringify(this.state, null, 2)}</pre>
+          </Form.Field>
           <Form.Field >
             <label>Message</label>
             <input onChange={this.props.handleFieldChange} id="completed_message" defaultValue={this.props.hike.completed_message} />

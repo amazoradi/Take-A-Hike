@@ -101,7 +101,7 @@ export default class MyHikeList extends Component {
                 }}>
                   Add Message</Button>
               </div>
-              <MyHikeMessage key={hike.id} hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} hideMessageForm={this.state.hideMessageForm} handleAddMessageClick={this.handleAddMessageClick} />
+              <MyHikeMessage  hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} hideMessageForm={this.state.hideMessageForm} handleAddMessageClick={this.handleAddMessageClick} />
               <div className={this.state.hideMessageForm ? "cardButtons" : "hide"}>
                 <Button className={this.state.hideMessageForm ? null : "hide"} onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to my Itinerary</Button>
                 <Button className={this.state.hideMessageForm ? null : "hide"} onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>

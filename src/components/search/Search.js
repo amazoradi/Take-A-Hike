@@ -10,8 +10,7 @@ const searchOptions = [
   { value: "null", text: "No Filter", id: "null" },
   { value: "maxDistance", text: "Distance from Location", id: "searchParam" },
   { value: "minLength", text: "Minimum Trail Length", id: "searchParam" },
-  { value: "minStars", text: "Star rating", id: "searchParam" },
-  {}
+  { value: "minStars", text: "Star rating", id: "searchParam" }
 ]
 
 export default class Search extends Component {
@@ -36,7 +35,7 @@ export default class Search extends Component {
       lng: ""
     },
     searchParam: "",
-    searchValue:""
+    searchValue: ""
   }
 
   getHardCodedTrails = () => {
@@ -52,6 +51,15 @@ export default class Search extends Component {
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
   }
+  getFilteredForgeinTrails = () => {
+    const newState = {}
+    // if (this.state.searchParam !== "") {
+      APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
+        .then(trails => newState.trails = trails.trails)
+        .then(() => this.setState(newState))
+        .then(()=> console.log("I successfully filtered by:", this.state.searchParam))
+    // }
+  }
 
   handleFieldChange = (evt) => {
     const stateToChange = {}
@@ -62,37 +70,40 @@ export default class Search extends Component {
 
   handleDropdownChange = (evt) => {
     let value;
-    if (evt.target.className !== "text" && evt.target.firstChild.className !== "text"){
+    const newState = {};
+    if (evt.target.className !== "text" && evt.target.firstChild.className !== "text") {
       console.log("do nothing")
-    } else if(evt.target.className === "text"){
-      if (evt.target.innerText.includes("Distance from Location")){
+    } else if (evt.target.className === "text") {
+      if (evt.target.innerText.includes("Distance from Location")) {
         value = "maxDistance"
-      } else if (evt.target.innerText.includes("Minimum Trail Length")){
+        newState.searchParam = value
+        this.setState(newState)
+      } else if (evt.target.innerText.includes("Minimum Trail Length")) {
         value = "minLength"
+        newState.searchParam = value
+        this.setState(newState)
       } else if (evt.target.innerText.includes("Star rating")) {
         value = "minStars"
+        newState.searchParam = value
+        this.setState(newState)
       }
-      console.log(value);
+      console.log("first if", "state.searchparam:", newState.searchParam);
     } else {
       if (evt.target.firstChild.innerText.includes("Distance from Location")) {
         value = "maxDistance"
+        newState.searchParam = value
+        this.setState(newState)
       } else if (evt.target.firstChild.innerText.includes("Minimum Trail Length")) {
         value = "minLength"
-      } else if (evt.target.firstChild.innerText.includes("Star rating")){
+        newState.searchParam = value
+        this.setState(newState)
+      } else if (evt.target.firstChild.innerText.includes("Star rating")) {
         value = "minStars"
+        newState.searchParam = value
+        this.setState(newState)
       }
-      console.log(value);
+      console.log("the else:", "state.searchparam:", newState.searchParam);
     }
-    // console.log(evt.target.parentElement);
-    // console.log("look here", evt.target.value)
-    // console.log(searchOptions);
-    // if (evt.target.value !== undefined) {
-    //  value = evt.target.value;
-    // } else {
-    //  value = evt.target.innerText;
-    // }
-    // this.setState(stateToChange)
-    // console.log("id:", evt.target.id, "value:", evt.target.value)
   }
 
   getHardCodedLocations = (locationName) => {
@@ -117,6 +128,17 @@ export default class Search extends Component {
       .then(() => this.setState({ center: newState }))
       .then(() => this.getForgeinTrails())
   }
+//refactor to an if statement later
+  getAnyFilteredLocation = (locationName) => {
+    const newState = {}
+    return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
+      .then(location => {
+        newState.lat = location.results[0].geometry.location.lat
+        newState.lng = location.results[0].geometry.location.lng
+      })
+      .then(() => this.setState({ center: newState }))
+      .then(() => this.getFilteredForgeinTrails())
+  }
 
   addHikeCard = hikeCard => {
     APIManager.addEntry("hikes", hikeCard)
@@ -140,20 +162,19 @@ export default class Search extends Component {
       <React.Fragment>
         <div className="searchField">
           <h2>Search for a hike in a city near you</h2>
-          <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
+          {/* <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
           <Icon name='search' link onClick={() => {
-            // this.getHardCodedLocations(this.state.location)
-            this.getAnyLocation(this.state.location)
+            this.getAnyLocation(this.state.location) */}
+          {/* }} /> */}
+          <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
+          <br/>
+          <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
+          <Input icon placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
+          <Icon name='search' link onClick={() => {
+            console.log("from icon click", "searchparam:", this.state.searchParam, "search value:", this.state.searchValue)
+            this.getAnyFilteredLocation(this.state.location)
           }} />
           <Divider />
-          <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange}/>
-         
-          <Input placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
-          <Icon name='search' link onClick={() => {
-            console.log("searchparam:", this.state.searchParam, "search value:", this.state.searchValue)
-            // this.getHardCodedLocations(this.state.location)
-            // this.getAnyLocation(this.state.location)
-          }} />
         </div>
         <div className="searchResultHolder">
           {
