@@ -19,8 +19,8 @@ export default class MyHikeList extends Component {
   componentDidMount() {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
-    .then(hikes => newState.hikes = hikes)
-    // If this equals true then then add to a ne filteredState={} and then set state to that
+      .then(hikes => newState.hikes = hikes)
+      // If this equals true then then add to a ne filteredState={} and then set state to that
       // .then(hikes => console.log("hike states:", hikes.map(hike => hike.hikeLocation.split(", ")[1].includes("Washington"))))
       .then(() => this.setState(newState))
   }
@@ -45,20 +45,21 @@ export default class MyHikeList extends Component {
     APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
       .then(hikes => newState.hikes = hikes)
       .then(hikes => {
-        let fliterARR=hikes.map(hike => hike.hikeLocation.split(", ")[1].includes(locationState))
-        fliterARR.forEach(item=> {
-          console.log("array item:", item)
+        let fliterARR = hikes.map(hike => hike.hikeLocation.split(", ")[1].includes(locationState))
+        fliterARR.forEach(item => {
+          // if (fliterARR.item === true)
         });
-        console.log("trying to filter:", fliterARR) 
-          console.log("does include")
-          // newState.hikes = hikes
-      //   } else {
-      //     console.log("no hikes here")
-      //   }
-      // })
-      // .then(() => this.setState(newState))
+        console.log("trying to filter:", fliterARR)
+        console.log("does include")
+        // newState.hikes = hikes
+        //   } else {
+        //     console.log("no hikes here")
+        //   }
+        // })
+        // .then(() => this.setState(newState))
+      }
+      )
   }
-      )}
 
   handleFieldChange = evt => {
     const stateToChange = {}
@@ -129,7 +130,7 @@ export default class MyHikeList extends Component {
               <img src={hike.imgSqSmall} alt=""></img>
               <div className="cardText">
                 <h2>{hike.name}</h2>
-                <h4>{hike.location}</h4>
+                <h4>{hike.hikeLocation}</h4>
                 <h5>{hike.length} miles. {hike.user_rating} stars out of 5</h5>
                 <p>{hike.summary}</p>
                 <div className={this.state.shownForm ? "hide" : "cardMessage"}>

@@ -3,22 +3,22 @@ import APIManager from "../../modules/APIManager"
 import { Button } from 'semantic-ui-react';
 
 export default class Itinerary extends Component {
-  state={
-    hikes:[],
+  state = {
+    hikes: [],
     currentUserId: this.props.getCurrentUser()
   }
 
- componentDidMount() {
-    const newState={}
+  componentDidMount() {
+    const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`)
       .then(hikes => newState.hikes = hikes)
-      .then(() => this.setState(newState))    
+      .then(() => this.setState(newState))
   }
 
   deleteItineraryItem = id => {
     APIManager.deleteEntry("hikes", id)
-      .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`) )
-      .then( hikes => this.setState({ hikes:hikes })) 
+      .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`))
+      .then(hikes => this.setState({ hikes: hikes }))
   }
 
   addToMyHikes = (id, hikeCard) => {
@@ -26,29 +26,29 @@ export default class Itinerary extends Component {
     APIManager.editEntry("hikes", id, hikeCard)
       .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`))
       .then(hikes => newState.hikes = hikes)
-      .then( ()=> this.setState(newState))
+      .then(() => this.setState(newState))
   }
 
   render() {
     return (
       <div>
-      {
-        this.state.hikes.map(hike => 
-          <div key={hike.id} className="hikeCard">
-            <img src={hike.imageUrl} alt=""></img>
-            <div className="cardText">
-              <h2>{hike.name}</h2>
-              <h4>{hike.location}</h4>
-              <h5>{hike.length} miles. {hike.stars} stars out of 5</h5>
-              <p>{hike.summary}</p> 
+        {
+          this.state.hikes.map(hike =>
+            <div key={hike.id} className="hikeCard">
+              <img src={hike.imageUrl} alt=""></img>
+              <div className="cardText">
+                <h2>{hike.name}</h2>
+                <h4>{hike.hikeLocation}</h4>
+                <h5>{hike.length} miles. {hike.stars} stars out of 5</h5>
+                <p>{hike.summary}</p>
               </div>
               <div className="cardButtons">
                 <Button className="btn" onClick={() => this.deleteItineraryItem(`${hike.id}`)} >Remove</Button>
-                <Button className="btn" onClick={() => this.addToMyHikes(`${hike.id}`, {"completed": true})}>Add to My Hikes</Button>
+                <Button className="btn" onClick={() => this.addToMyHikes(`${hike.id}`, { "completed": true })}>Add to My Hikes</Button>
               </div>
-              </div>
-              )
-      }
+            </div>
+          )
+        }
       </div>
     )
   }

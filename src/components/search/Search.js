@@ -186,7 +186,7 @@ export default class Search extends Component {
             )
           }
         </div>
-        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} />
+        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} location={this.state.location}/>
 
       </React.Fragment>
     )

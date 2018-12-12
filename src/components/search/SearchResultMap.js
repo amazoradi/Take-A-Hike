@@ -48,6 +48,13 @@ class GoogleMapsContainer extends React.Component {
           }
           style={style}
         >
+          {/* <Marker
+            key={1}
+            onClick={this.onMarkerClick}
+            title={this.props.location}
+            position={{ lat: this.props.center.lat, lng: this.props.center.lng }}
+            name={this.props.location}
+          /> */}
           {this.props.trails.map(trail => (
 
             <Marker
