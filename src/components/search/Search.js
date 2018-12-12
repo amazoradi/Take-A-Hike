@@ -161,19 +161,22 @@ export default class Search extends Component {
     return (
       <React.Fragment>
         <div className="searchField">
-          <h2>Search for a hike in a city near you</h2>
+          <h2>Search for a hike near you</h2>
           {/* <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
           <Icon name='search' link onClick={() => {
             this.getAnyLocation(this.state.location) */}
           {/* }} /> */}
+          <div>
+
           <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
-          <br/>
+          {/* <br/> */}
           <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
           <Input icon placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
           <Icon name='search' link onClick={() => {
             console.log("from icon click", "searchparam:", this.state.searchParam, "search value:", this.state.searchValue)
             this.getAnyFilteredLocation(this.state.location)
           }} />
+          </div>
           <Divider />
         </div>
         <div className="searchResultHolder">
