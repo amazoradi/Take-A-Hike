@@ -1,6 +1,29 @@
 .loginForm {
-  width: 50%;
-  margin: 30px 25%;
+  width: 600px;
+  margin: 30px auto;
   border: 1px solid black;
   padding: 10px;
+}
+
+ .welcomeButton {
+   display: flex;
+   justify-content: space-around;
+   margin: 40px 40px 10px 40px;
+}
+
+.welcomeImg {
+  width: 150px;
+  height: auto;
+}
+
+.formTitle {
+  display: flex;
+  justify-content: flex-start;
+}
+.imgDiv {
+  flex-basis: content;
+}
+
+.formTopWords {
+  margin: 65px 0px 0px 5px;
 }

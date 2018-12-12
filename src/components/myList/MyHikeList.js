@@ -19,7 +19,9 @@ export default class MyHikeList extends Component {
   componentDidMount() {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
-      .then(hikes => newState.hikes = hikes)
+    .then(hikes => newState.hikes = hikes)
+    // If this equals true then then add to a ne filteredState={} and then set state to that
+      // .then(hikes => console.log("hike states:", hikes.map(hike => hike.hikeLocation.split(", ")[1].includes("Washington"))))
       .then(() => this.setState(newState))
   }
 
@@ -36,6 +38,27 @@ export default class MyHikeList extends Component {
       .then(hikes => newState.hikes = hikes)
       .then(() => this.setState(newState))
   }
+
+  filterHikes = locationState => {
+    const newState = {}
+    const filteredState = {}
+    APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
+      .then(hikes => newState.hikes = hikes)
+      .then(hikes => {
+        let fliterARR=hikes.map(hike => hike.hikeLocation.split(", ")[1].includes(locationState))
+        fliterARR.forEach(item=> {
+          console.log("array item:", item)
+        });
+        console.log("trying to filter:", fliterARR) 
+          console.log("does include")
+          // newState.hikes = hikes
+      //   } else {
+      //     console.log("no hikes here")
+      //   }
+      // })
+      // .then(() => this.setState(newState))
+  }
+      )}
 
   handleFieldChange = evt => {
     const stateToChange = {}
@@ -90,12 +113,16 @@ export default class MyHikeList extends Component {
 
   handleRate = (e, { rating }) => {
     this.setState({ rating })
-  } 
+  }
+  helloStates = () => {
+    console.log(this.state.hikes.map(hike => hike.hikeLocation.split(", ")[1]))
 
+  }
   render() {
 
     return (
-      <div>
+      <div >
+        <button onClick={() => this.filterHikes("Washington")} > FILTER HERE </button>
         {
           this.state.hikes.map(hike =>
             <div key={hike.id} className="hikeCard">
@@ -113,11 +140,12 @@ export default class MyHikeList extends Component {
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
                 <Button onClick={() => {
                   this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
+                  console.log("hike state:", hike.hikeLocation.split(",")[1])
                 }}>
                   Add Message</Button>
               </div>
               <MyHikeMessage hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} getUserRating={this.getUserRating} handleRate={this.handleRate} rating={this.state.rating} user_rating={this.state.user_rating} />
-              
+
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
                 <Button onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to my Itinerary</Button>
                 <Button onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>

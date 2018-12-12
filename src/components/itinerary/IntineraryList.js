@@ -53,16 +53,3 @@ export default class Itinerary extends Component {
     )
   }
 }
-  
-
-// "userId": 1,
-//       "name": "Mount Mitchell - Black Mountain Crest Trail #179",
-//       "hikeLocation": "Burnsville, North Carolina",
-//       "length": 12.1,
-//       "stars": 12.1,
-//       "summary": "The highest, most airy ridge traverse in the east and a destination hike not to be taken lightly.",
-//       "completed": false,
-//       "public": false,
-//       "date_completed": "",
-//       "completed_message": "",
-//       "id": 3

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from "../authentication/Take-a-Hike-Logo.png"
 
 
 export default class SearchResultCard extends Component {
@@ -46,7 +47,7 @@ export default class SearchResultCard extends Component {
 
     return (
       <div key={this.props.trail.id} className="trailCard">
-        <img src={this.props.trail.imgSqSmall} alt="" ></img>
+        <img src={this.props.trail.imgSqSmall || `${logo}`} alt="" ></img>
         <div className="cardText">
           <h2>{this.props.trail.name}</h2>
           <h4>{this.props.trail.location}</h4>

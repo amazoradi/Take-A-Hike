@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Icon, Input } from 'semantic-ui-react'
+import "./authentication.css"
+import logo from "./Take-a-Hike-Logo.png"
 
 export default class Register extends Component {
 
@@ -7,7 +9,13 @@ export default class Register extends Component {
     return (
       <React.Fragment>
         <div className={this.props.hideLoginForm ? "loginForm" : "hide"}>
-          <h2> Register Here </h2>
+          <div className="formTitle" >
+            <div className="imgDiv">
+              <img className="welcomeImg" src={logo} />
+            </div>
+
+            <h2 className="formTopWords"> Register Here </h2>
+          </div>
           <Form>
             <Form.Field>
               <label htmlFor="registerName">Name</label>
@@ -26,8 +34,10 @@ export default class Register extends Component {
               <Input iconPosition='left' icon={<Icon name='map outline' />} type="text" placeholder="You're current city" id="registerLocation" onChange={this.props.handleFieldChange} />
             </Form.Field>
           </Form>
-          <Button onClick={() => this.props.handleRegister()}>Register</Button>
-          <Button onClick={() => this.props.handleChangeForm()}>Return to login</Button>
+          <div className="welcomeButton">
+            <Button onClick={() => this.props.handleRegister()}>Register</Button>
+            <Button onClick={() => this.props.handleChangeForm()}>Return to login</Button>
+          </div>
         </div>
       </React.Fragment>
     )

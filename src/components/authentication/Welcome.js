@@ -23,7 +23,6 @@ export default class Welcome extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
-    // console.log(stateToChange)
   }
 
   //handle the checkbox change
