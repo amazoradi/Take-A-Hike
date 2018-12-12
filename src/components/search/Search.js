@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
 import "./search.css";
 import parameters from "../../config/callParams"
-import { Input, Icon, Dropdown, Divider, DropdownItem } from 'semantic-ui-react'
+import { Input, Icon, Dropdown, Divider} from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
 import GoogleMapsContainer from './SearchResultMap'
+
 
 const searchOptions = [
   { value: "null", text: "No Filter", id: "null" },
@@ -35,7 +36,7 @@ export default class Search extends Component {
       lng: ""
     },
     searchParam: "",
-    searchValue: ""
+    searchValue: "",
   }
 
   getHardCodedTrails = () => {
@@ -157,7 +158,6 @@ export default class Search extends Component {
 
 
   render() {
-    // this.getUserLocation()
     return (
       <React.Fragment>
         <div className="searchField">
@@ -186,7 +186,7 @@ export default class Search extends Component {
             )
           }
         </div>
-        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} />
+        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} location={this.state.location}/>
 
       </React.Fragment>
     )

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import { Menu } from 'semantic-ui-react'
-
+import logo from "./takeAHike.png"
+import "./navbar.css"
 
 class HikeNavBar extends Component {
 
@@ -21,8 +22,12 @@ class HikeNavBar extends Component {
     if (this.isAuthenticated()) {
       return (
         < div >
-          <Menu pointing secondary>
+          <Menu pointing secondary >
+            <Menu.Item name='Take A Hike'>
+              <img src={logo} />
+            </Menu.Item>
             <Menu.Item name='Take A Hike' />
+            
             <Menu.Menu position='right'>
 
               <Menu.Item name='search' active={activeItem === 'search'} as={Link} to="/" onClick={this.handleItemClick} />
@@ -34,7 +39,7 @@ class HikeNavBar extends Component {
               <Menu.Item name='messages' active={activeItem === 'messages'} as={Link} to="/messages" onClick={this.handleItemClick} />
 
               <Menu.Item name='Logout' active={activeItem === 'Logout'} as={Link} to="/welcome" onClick={() => {
-                this.handleItemClick()
+                // this.handleItemClick()
                 this.logoutUser()
               }} />
 
@@ -45,8 +50,8 @@ class HikeNavBar extends Component {
       )
     } else {
       return (
-        <div>
-          <h2 className="welcomeTitle">Take A Hike</h2>
+        <div >
+          <p className="welcomeTitle hide">Take A Hike</p>
         </div>
       )
     }

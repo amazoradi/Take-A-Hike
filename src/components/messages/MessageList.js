@@ -113,7 +113,7 @@ export default class Messages extends Component {
 
     return (
       <React.Fragment>
-        <div className="messageBoard">
+        <div className="messageBoard bryans__class">
         <h2 className="sectionTitle">{this.state.userName}&#39;s Messages</h2>  
         <NewMessageForm handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} />
           <Divider />

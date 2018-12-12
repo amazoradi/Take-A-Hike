@@ -36,11 +36,15 @@
 }
 
 .messageBoard {
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
 }
 
 .messageButtons {
   margin: 15px;
   display: flex;
   flex-wrap: wrap;
+}
+
+.bryans__class {
+  margin: 20px 0px 0px 25px;
 }

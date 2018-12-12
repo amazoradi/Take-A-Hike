@@ -1,0 +1,12 @@
+.welcomeTitle {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+
+  font-size: 2em;
+  background-color: blueviolet;
+}
+
+.welcomeLogo{
+
+}
