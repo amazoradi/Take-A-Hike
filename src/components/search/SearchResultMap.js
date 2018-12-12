@@ -1,81 +1,82 @@
-// import React from 'react';
-// import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-// import parameters from "../../config/callParams"
+import React from 'react';
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import parameters from "../../config/callParams"
 
-// class GoogleMapsContainer extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       showingInfoWindow: false,
-//       activeMarker: {},
-//       selectedPlace: {}
-//     }
-//     // binding this to event-handler functions
-//     this.onMarkerClick = this.onMarkerClick.bind(this);
-//     this.onMapClick = this.onMapClick.bind(this);
-//   }
-//   onMarkerClick = (props, marker, e) => {
-//     this.setState({
-//       selectedPlace: props,
-//       activeMarker: marker,
-//       showingInfoWindow: true
-//     });
-//   }
-//   onMapClick = (props) => {
-//     if (this.state.showingInfoWindow) {
-//       this.setState({
-//         showingInfoWindow: false,
-//         activeMarker: null
-//       });
-//     }
-//   }
-//   render() {
-//     const style = {
-//       width: '50vw',
-//       height: '75vh',
-//       'marginLeft': 'auto',
-//       'marginRight': 'auto'
-//     }
+class GoogleMapsContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {}
+    }
+    // binding this to event-handler functions
+    this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.onMapClick = this.onMapClick.bind(this);
+  }
+  onMarkerClick = (props, marker, e) => {
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+  }
+  onMapClick = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  }
+  render() {
+    const style = {
+      width: '80vw',
+      height: '60vh',
+      'marginLeft': 'auto',
+      'marginRight': 'auto'
+    }
+    // console.log(this.props.trails) 
+    return (
+      <React.Fragment>
+        <Map
+          google={this.props.google}
+          center={this.props.center}
+          // initialCenter={this.props.userCenter}
+          zoom={
+            11
+          }
+          style={style}
+        >
+          {this.props.trails.map(trail => (
 
-//     var points = [
-//       { lat: 39.648209, lng: -75.711185 }
-//       { lat: `${this.props.locationLat}`, lng: `${this.props.locationLong}` }
-//     ]
-//     var bounds = new this.props.google.maps.LatLngBounds();
-//     for (var i = 0; i < points.length; i++) {
-//       bounds.extend(points[i]);
-//     }
+            <Marker
+              key={trail.id}
+              onClick={this.onMarkerClick}
+              title={trail.name}
+              position={{ lat: trail.latitude, lng: trail.longitude }}
+              name={trail.name}
+              summary={trail.summary}
+              length={trail.length}
+            />
 
+          ))}
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+          >
+            <div>
+              <h5>{this.state.selectedPlace.name} </h5>
+              <p>{this.state.selectedPlace.summary} </p>
+              <p>{this.state.selectedPlace.length} miles</p>
+            </div>
 
-//       return (
-//         <React.Fragment>
-//         <Map
-//           google={this.props.google}
-//           initialCenter={{
-//             lat: 42.39,
-//             lng: -72.52
-//           }}
-//           bounds={bounds}>
-       
-//         <Marker
-//           onClick={this.onMarkerClick}
-//           title={'Changing Colors Garage'}
-//           position={{ lat: 39.648209, lng: -75.711185 }}
-//           name={'Changing Colors Garage'}
-//         />
-//         <InfoWindow
-//           marker={this.state.activeMarker}
-//           visible={this.state.showingInfoWindow}
-//         >
-
-//         </InfoWindow>
-//       </Map >
-//     </React.Fragment >
-//     );
-//     }
-//   }
-//   export default GoogleApiWrapper({
-//     apiKey: (parameters.google)
-// }) (GoogleMapsContainer)
-
-
+          </InfoWindow>
+        </Map >
+      </React.Fragment >
+    );
+  }
+}
+export default GoogleApiWrapper({
+  apiKey: (parameters.google)
+})(GoogleMapsContainer)

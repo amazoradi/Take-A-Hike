@@ -14,15 +14,15 @@ export default class Register extends Component {
               <Input iconPosition='left' icon={<Icon name='user outline' />} type="text" placeholder='Joe Shepard' id="registerName" onChange={this.props.handleFieldChange} />
             </Form.Field>
             <Form.Field>
-              <label for="registerEmail">Email</label>
+              <label htmlFor="registerEmail">Email</label>
               <Input iconPosition='left' icon={<Icon name='at' />} type="email" placeholder='Email@email.com' id="registerEmail" onChange={this.props.handleFieldChange} />
             </Form.Field>
             <Form.Field>
-              <label for="registerPassword">Password</label>
+              <label htmlFor="registerPassword">Password</label>
               <Input iconPosition='left' icon={<Icon name='lock' />} type="password" placeholder='Password' id="registerPassword" onChange={this.props.handleFieldChange} />
             </Form.Field>
-            <Form.Field check>
-              <label for="registerLocation">Your Location</label>
+            <Form.Field>
+              <label htmlFor="registerLocation">Your Location</label>
               <Input iconPosition='left' icon={<Icon name='map outline' />} type="text" placeholder="You're current city" id="registerLocation" onChange={this.props.handleFieldChange} />
             </Form.Field>
           </Form>
