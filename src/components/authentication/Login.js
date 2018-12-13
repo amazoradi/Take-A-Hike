@@ -11,36 +11,37 @@ export default class Login extends Component {
 
       <React.Fragment>
         <div className="welcomePage">
+          <div className="formholder" >
 
-          <div className={this.props.hideLoginForm ? "hide" : "loginForm"}>
-            <div className="formTitle" >
-              <div className="imgDiv">
-                <img className="welcomeImg" src={logo} alt="" />
+            <div className={this.props.hideLoginForm ? "hide" : "loginForm"}>
+              <div className="formTitle" >
+                <div className="imgDiv">
+                  <img className="welcomeImg" src={logo} alt="" />
+                </div>
+                <h2 className="formTopWords"> Login Here </h2>
               </div>
-              <h2 className="formTopWords"> Login Here </h2>
+              <Form>
+                <Form.Field >
+                  <label htmlFor="loginEmail">Email</label>
+                  <Input iconPosition='left' icon={<Icon name='at' />} type="email" placeholder='Email@email.com' id="loginEmail" onChange={this.props.handleFieldChange} />
+                </Form.Field>
+                <Form.Field>
+                  <label htmlFor="password">Password</label>
+                  <Input iconPosition='left' icon={<Icon name='lock' />} type="password" placeholder='Password' id="loginPassword" onChange={this.props.handleFieldChange} />
+                </Form.Field>
+                <Form.Field>
+                  <Checkbox type="checkbox" id="remember" label='Remember Me' onChange={this.props.handleCheckbox} />
+                </Form.Field>
+                <div className="welcomeButton">
+
+                  <Button onClick={() => this.props.handleLogin()}>Login</Button>
+                  <Button onClick={() => this.props.handleChangeForm()}>New Here? Click here to register.</Button>
+                </div>
+              </Form>
             </div>
-            <Form>
-              <Form.Field >
-                <label htmlFor="loginEmail">Email</label>
-                <Input iconPosition='left' icon={<Icon name='at' />} type="email" placeholder='Email@email.com' id="loginEmail" onChange={this.props.handleFieldChange} />
-              </Form.Field>
-              <Form.Field>
-                <label htmlFor="password">Password</label>
-                <Input iconPosition='left' icon={<Icon name='lock' />} type="password" placeholder='Password' id="loginPassword" onChange={this.props.handleFieldChange} />
-              </Form.Field>
-              <Form.Field>
-                <Checkbox type="checkbox" id="remember" label='Remember Me' onChange={this.props.handleCheckbox} />
-              </Form.Field>
-              <div className="welcomeButton">
-
-                <Button onClick={() => this.props.handleLogin()}>Login</Button>
-                <Button onClick={() => this.props.handleChangeForm()}>New Here? Click here to register.</Button>
-              </div>
-            </Form>
           </div>
-
         </div>
-      </React.Fragment>
+      </React.Fragment >
     )
   }
 }
