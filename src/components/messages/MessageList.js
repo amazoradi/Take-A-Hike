@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 import "./messages.css"
-import MessageCard from './MessageCard';
-import NewMessageForm from './NewMessageForm';
-import { Divider } from 'semantic-ui-react'
+import MessageCard from "./MessageCard"
+import NewMessageForm from "./NewMessageForm"
+import { Divider } from "semantic-ui-react"
 
 export default class Messages extends Component {
 
@@ -114,16 +114,16 @@ export default class Messages extends Component {
     return (
       <React.Fragment>
         <div className="messageBoard bryans__class">
-        <h2 className="sectionTitle">{this.state.userName}&#39;s Messages</h2>  
-        <NewMessageForm handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} />
+          <h2 className="sectionTitle">{this.state.userName}&#39;s Messages</h2>
+          <NewMessageForm handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} />
           <Divider />
-        <div className="messageHolder">
-          {
-            this.state.messages.map(message =>
-              <MessageCard key={message.id} message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
-            )
-          }
-        </div>
+          <div className="messageHolder">
+            {
+              this.state.messages.map(message =>
+                <MessageCard key={message.id} message={message} constructEditedMessage={this.constructEditedMessage} handleEditFieldChange={this.handleEditFieldChange} messageText={this.state.messageText} messageImg={this.state.messageImg} handleNewEdit={this.handleNewEdit} hideEditForm={this.state.hideEditForm} deleteMessage={this.deleteMessage} />
+              )
+            }
+          </div>
         </div>
       </React.Fragment>
     )

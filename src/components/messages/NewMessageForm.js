@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Icon, Header, Modal, Input } from 'semantic-ui-react'
+import React, { Component } from "react"
+import { Button, Icon, Header, Modal, Input } from "semantic-ui-react"
 
 export default class NewMessageForm extends Component {
 

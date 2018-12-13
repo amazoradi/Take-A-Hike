@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
 import "./search.css";
 import parameters from "../../config/callParams"
-import { Input, Icon, Dropdown, Divider} from 'semantic-ui-react'
+import { Input, Icon, Dropdown, Divider } from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
 import GoogleMapsContainer from './SearchResultMap'
 
@@ -54,19 +54,17 @@ export default class Search extends Component {
   }
   getFilteredForgeinTrails = () => {
     const newState = {}
-    // if (this.state.searchParam !== "") {
-      APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
-        .then(trails => newState.trails = trails.trails)
-        .then(() => this.setState(newState))
-        .then(()=> console.log("I successfully filtered by:", this.state.searchParam))
-    // }
+    APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
+      .then(trails => newState.trails = trails.trails)
+      .then(() => this.setState(newState))
+      // .then(() => console.log("I successfully filtered by:", this.state.searchParam))
+
   }
 
   handleFieldChange = (evt) => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
-    console.log("id:", evt.target.id, "value:", evt.target.value)
   }
 
   handleDropdownChange = (evt) => {
@@ -88,7 +86,7 @@ export default class Search extends Component {
         newState.searchParam = value
         this.setState(newState)
       }
-      console.log("first if", "state.searchparam:", newState.searchParam);
+      // console.log("first if", "state.searchparam:", newState.searchParam);
     } else {
       if (evt.target.firstChild.innerText.includes("Distance from Location")) {
         value = "maxDistance"
@@ -103,7 +101,7 @@ export default class Search extends Component {
         newState.searchParam = value
         this.setState(newState)
       }
-      console.log("the else:", "state.searchparam:", newState.searchParam);
+      // console.log("the else:", "state.searchparam:", newState.searchParam);
     }
   }
 
@@ -129,7 +127,7 @@ export default class Search extends Component {
       .then(() => this.setState({ center: newState }))
       .then(() => this.getForgeinTrails())
   }
-//refactor to an if statement later
+  
   getAnyFilteredLocation = (locationName) => {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
@@ -155,6 +153,14 @@ export default class Search extends Component {
       })
       .then(() => this.setState({ center: newState }))
   }
+  handleSearch = () => {
+    if (this.state.location === "") {
+      alert("Please enter a location for your next hike.")
+    } else {
+      this.getAnyFilteredLocation(this.state.location)
+    }
+  }
+
 
 
   render() {
@@ -162,20 +168,13 @@ export default class Search extends Component {
       <React.Fragment>
         <div className="searchField">
           <h2>Search for a hike near you</h2>
-          {/* <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
-          <Icon name='search' link onClick={() => {
-            this.getAnyLocation(this.state.location) */}
-          {/* }} /> */}
-          <div>
-
-          <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
-          {/* <br/> */}
-          <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
-          <Input icon placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
-          <Icon name='search' link onClick={() => {
-            console.log("from icon click", "searchparam:", this.state.searchParam, "search value:", this.state.searchValue)
-            this.getAnyFilteredLocation(this.state.location)
-          }} />
+          <div className="searchInput">
+            <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
+            <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
+            <Input icon placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
+            <Icon name='search' link onClick={() => {
+              this.handleSearch()
+            }} />
           </div>
           <Divider />
         </div>
@@ -186,7 +185,7 @@ export default class Search extends Component {
             )
           }
         </div>
-        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} location={this.state.location}/>
+        <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} location={this.state.location} />
 
       </React.Fragment>
     )

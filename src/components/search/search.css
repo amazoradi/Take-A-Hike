@@ -14,11 +14,16 @@
 }
 
 .trailCard img {
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 250px;
   margin: 20px;
 }
 
 .trailCard button {
   margin: 5px;
+}
+
+.searchInput {
+  width: 630px;
+  margin: 5px auto;
 }

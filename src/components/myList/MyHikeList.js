@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
-import { Button } from 'semantic-ui-react'
+import { Button, Input } from "semantic-ui-react"
 import MyHikeMessage from "./MyHikeMessage"
-import 'moment-timezone';
+import "moment-timezone"
+import "./MyHike.css"
 
 export default class MyHikeList extends Component {
   state = {
@@ -13,15 +14,21 @@ export default class MyHikeList extends Component {
     editId: "",
     user_rating: "",
     shownForm: null,
-    rating: ''
+    rating: "",
+    filterLocation: "",
   }
 
   componentDidMount() {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
       .then(hikes => newState.hikes = hikes)
-      // If this equals true then then add to a ne filteredState={} and then set state to that
-      // .then(hikes => console.log("hike states:", hikes.map(hike => hike.hikeLocation.split(", ")[1].includes("Washington"))))
+      .then(() => this.setState(newState))
+  }
+
+  getAllHikes = () => {
+    const newState = {}
+    APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
+      .then(hikes => newState.hikes = hikes)
       .then(() => this.setState(newState))
   }
 
@@ -41,24 +48,9 @@ export default class MyHikeList extends Component {
 
   filterHikes = locationState => {
     const newState = {}
-    const filteredState = {}
-    APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
+    APIManager.getAllEntries("hikes", `/?completed=true&hikeState=${locationState}&userId=${this.state.currentUserId}`)
       .then(hikes => newState.hikes = hikes)
-      .then(hikes => {
-        let fliterARR = hikes.map(hike => hike.hikeLocation.split(", ")[1].includes(locationState))
-        fliterARR.forEach(item => {
-          // if (fliterARR.item === true)
-        });
-        console.log("trying to filter:", fliterARR)
-        console.log("does include")
-        // newState.hikes = hikes
-        //   } else {
-        //     console.log("no hikes here")
-        //   }
-        // })
-        // .then(() => this.setState(newState))
-      }
-      )
+      .then(() => this.setState(newState))
   }
 
   handleFieldChange = evt => {
@@ -115,15 +107,15 @@ export default class MyHikeList extends Component {
   handleRate = (e, { rating }) => {
     this.setState({ rating })
   }
-  helloStates = () => {
-    console.log(this.state.hikes.map(hike => hike.hikeLocation.split(", ")[1]))
 
-  }
   render() {
-
     return (
       <div >
-        <button onClick={() => this.filterHikes("Washington")} > FILTER HERE </button>
+        <div className="filterCards">
+          <Input id="filterLocation" placeholder="Filter by state name" onChange={this.handleFieldChange} />
+          <Button onClick={() => this.filterHikes(this.state.filterLocation)} > Filter </Button>
+          <Button onClick={() => this.getAllHikes()} > All of My Hikes </Button>
+        </div>
         {
           this.state.hikes.map(hike =>
             <div key={hike.id} className="hikeCard">
@@ -135,20 +127,19 @@ export default class MyHikeList extends Component {
                 <p>{hike.summary}</p>
                 <div className={this.state.shownForm ? "hide" : "cardMessage"}>
                   <p>Message: {hike.completed_message}</p>
-                  <p>Last Completed On:{hike.date_completed}</p>
+                  <p>Last completed on:{hike.date_completed}</p>
                 </div>
               </div>
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
                 <Button onClick={() => {
                   this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
-                  console.log("hike state:", hike.hikeLocation.split(",")[1])
                 }}>
                   Add Message</Button>
               </div>
               <MyHikeMessage hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} getUserRating={this.getUserRating} handleRate={this.handleRate} rating={this.state.rating} user_rating={this.state.user_rating} />
 
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
-                <Button onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to my Itinerary</Button>
+                <Button onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to My Itinerary</Button>
                 <Button onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>
               </div>
             </div>

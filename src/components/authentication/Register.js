@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button, Form, Icon, Input } from 'semantic-ui-react'
+import React, { Component } from "react"
+import { Button, Form, Icon, Input } from "semantic-ui-react"
 import "./authentication.css"
-import logo from "./Take-a-Hike-Logo.png"
+import logo from "../../img/Take-a-Hike-Logo.png"
 
 export default class Register extends Component {
 
@@ -11,9 +11,8 @@ export default class Register extends Component {
         <div className={this.props.hideLoginForm ? "loginForm" : "hide"}>
           <div className="formTitle" >
             <div className="imgDiv">
-              <img className="welcomeImg" src={logo} />
+              <img className="welcomeImg" src={logo} alt="" />
             </div>
-
             <h2 className="formTopWords"> Register Here </h2>
           </div>
           <Form>

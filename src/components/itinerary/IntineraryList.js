@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
-import { Button } from 'semantic-ui-react';
+import { Button, Input } from "semantic-ui-react"
+import "./itinerary.css"
 
 export default class Itinerary extends Component {
   state = {
     hikes: [],
-    currentUserId: this.props.getCurrentUser()
+    currentUserId: this.props.getCurrentUser(),
+    filterLocation: "",
   }
 
   componentDidMount() {
@@ -29,9 +31,35 @@ export default class Itinerary extends Component {
       .then(() => this.setState(newState))
   }
 
+  getAllHikes = () => {
+    const newState = {}
+    APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`)
+      .then(hikes => newState.hikes = hikes)
+      .then(() => this.setState(newState))
+  }
+
+  filterHikes = locationState => {
+    const newState = {}
+    APIManager.getAllEntries("hikes", `/?completed=false&hikeState=${locationState}&userId=${this.state.currentUserId}`)
+      .then(hikes => newState.hikes = hikes)
+      .then(() => this.setState(newState))
+  }
+
+  handleFieldChange = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+  }
+
   render() {
     return (
-      <div>
+      <div >
+        <div className="filterItin">
+          <Input id="filterLocation" placeholder="Filter by state name" onChange={this.handleFieldChange} />
+          <Button onClick={() => this.filterHikes(this.state.filterLocation)} >Filter</Button>
+          <Button onClick={() => this.getAllHikes()} > Show Full Itinerary </Button>
+        </div>
+        
         {
           this.state.hikes.map(hike =>
             <div key={hike.id} className="hikeCard">
