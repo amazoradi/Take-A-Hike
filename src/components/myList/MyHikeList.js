@@ -112,7 +112,7 @@ export default class MyHikeList extends Component {
     return (
       <div >
         <div className="filterCards">
-          <Input id="filterLocation" placeholder="Filter by state name" onChange={this.handleFieldChange}/>
+          <Input id="filterLocation" placeholder="Filter by state name" onChange={this.handleFieldChange} />
           <Button onClick={() => this.filterHikes(this.state.filterLocation)} > Filter </Button>
           <Button onClick={() => this.getAllHikes()} > All of My Hikes </Button>
         </div>

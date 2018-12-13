@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Form, Rating } from 'semantic-ui-react'
+import React, { Component } from "react"
+import { Button, Form, Rating } from "semantic-ui-react"
 
 export default class MyHikeMessage extends Component {
 

@@ -57,7 +57,7 @@ export default class Search extends Component {
     APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
-      .then(() => console.log("I successfully filtered by:", this.state.searchParam))
+      // .then(() => console.log("I successfully filtered by:", this.state.searchParam))
 
   }
 
@@ -127,7 +127,7 @@ export default class Search extends Component {
       .then(() => this.setState({ center: newState }))
       .then(() => this.getForgeinTrails())
   }
-  //refactor to an if statement later
+  
   getAnyFilteredLocation = (locationName) => {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
@@ -153,13 +153,13 @@ export default class Search extends Component {
       })
       .then(() => this.setState({ center: newState }))
   }
-handleSearch = () => {
-  if(this.state.location === "" ) {
-  alert("Please enter a location for your next hike.")
-} else {
-    this.getAnyFilteredLocation(this.state.location)
-}
-}
+  handleSearch = () => {
+    if (this.state.location === "") {
+      alert("Please enter a location for your next hike.")
+    } else {
+      this.getAnyFilteredLocation(this.state.location)
+    }
+  }
 
 
 
@@ -168,17 +168,12 @@ handleSearch = () => {
       <React.Fragment>
         <div className="searchField">
           <h2>Search for a hike near you</h2>
-          {/* <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
-          <Icon name='search' link onClick={() => {
-            this.getAnyLocation(this.state.location) */}
-          {/* }} /> */}
           <div className="searchInput">
             <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
             <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
             <Input icon placeholder="refine your search" id="searchValue" onChange={this.handleFieldChange} />
             <Icon name='search' link onClick={() => {
               this.handleSearch()
-              // this.getAnyFilteredLocation(this.state.location)
             }} />
           </div>
           <Divider />

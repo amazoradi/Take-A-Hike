@@ -24,7 +24,7 @@ class HikeNavBar extends Component {
         < div >
           <Menu pointing secondary >
             <Menu.Item name='Take A Hike'>
-              <img src={logo} />
+              <img src={logo} alt="" />
             </Menu.Item>
             <Menu.Item name='Take A Hike' />
             
@@ -39,7 +39,6 @@ class HikeNavBar extends Component {
               <Menu.Item name='messages' active={activeItem === 'messages'} as={Link} to="/messages" onClick={this.handleItemClick} />
 
               <Menu.Item name='Logout' active={activeItem === 'Logout'} as={Link} to="/welcome" onClick={() => {
-                // this.handleItemClick()
                 this.logoutUser()
               }} />
 

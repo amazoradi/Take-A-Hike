@@ -11,9 +11,8 @@ export default class Register extends Component {
         <div className={this.props.hideLoginForm ? "loginForm" : "hide"}>
           <div className="formTitle" >
             <div className="imgDiv">
-              <img className="welcomeImg" src={logo} />
+              <img className="welcomeImg" src={logo} alt="" />
             </div>
-
             <h2 className="formTopWords"> Register Here </h2>
           </div>
           <Form>

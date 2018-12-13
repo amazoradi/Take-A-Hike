@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import APIManager from '../../modules/APIManager';
-import Login from "./Login";
+import React, { Component } from "react"
+import APIManager from "../../modules/APIManager"
+import Login from "./Login"
 import Register from "./Register"
 
 export default class Welcome extends Component {
@@ -71,7 +71,6 @@ export default class Welcome extends Component {
       alert("Please enter a valid email.")
     }
   }
-
 
   // Handle for Login (existing user)
   handleLogin = (e) => {

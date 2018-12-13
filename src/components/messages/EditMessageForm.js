@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import React, { Component } from "react"
+import { Button, Form } from "semantic-ui-react"
 
 export default class EditMessageForm extends Component {
 
@@ -8,7 +8,7 @@ export default class EditMessageForm extends Component {
       <React.Fragment>
         <div >
 
-          <Form className={this.props.hideEditForm ? 'hide' : null} >
+          <Form className={this.props.hideEditForm ? "hide" : null} >
             <Form.Field >
               <label>Message</label>
               <input onChange={this.props.handleEditFieldChange} id="editMessageText" defaultValue={this.props.message.message} />
