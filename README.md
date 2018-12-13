@@ -1,7 +1,10 @@
-# Take A Hike
 <img src="src/img/Take-a-Hike-Logo.png" alt="Take a Hike" width=150 >
-*Take A Hike* is an app for the explorer who may not know where the next adventure lies. If you have ever wanted to go for a hike but needed help finding the perfect trail, *Take A Hike* is the app you have been waiting for. *Take a Hike* allows the user to find new trails, create an inventory of the their completed hikes (from their faithful standbys to the not so favorites, and everything in between), create a list of hikes the user wants to go on in the future,  and allows the user to chat with others in the hiking community.
+
+# Take A Hike
+
+Take A Hike is an app for the explorer who may not know where the next adventure lies. If you have ever wanted to go for a hike but needed help finding the perfect trail, Take A Hike is the app you have been waiting for. Take a Hike allows the user to find new trails, create an inventory of the their completed hikes (from their faithful standbys to the not so favorites, and everything in between), create a list of hikes the user wants to go on in the future,  and allows the user to chat with others in the hiking community.
 Take a hike is written with the JavaScript framework, React.js.
+
 ## Getting Started
 To run Take A Hike locally, create an empty directory and clone the project by running the following command in your terminal: ``` git@github.com:amazoradi/Take-A-Hike.git```
 
