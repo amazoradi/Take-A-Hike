@@ -1,6 +1,6 @@
 # Take A Hike
-Take A Hike is an app for the explorer who may not know where the next adventure lies. If you have ever wanted to go for a hike but needed help finding the perfect trail, Take A Hike is the app you have been waiting for. The app is perfect to find a new trail, create an inventory of your standbys, remember which hikes you will skip next time, and chat with the hiking community.
-Take a hike is written with the JavaScript framework, React.
+Take A Hike is an app for the explorer who may not know where the next adventure lies. If you have ever wanted to go for a hike but needed help finding the perfect trail, Take A Hike is the app you have been waiting for. Take a Hike allows the user to find new trails, create an inventory of the user's completed hikes and good old standbys, create a list of hikes the user wants to go on in the future,  and allows the user to chat with others in the hiking community.
+Take a hike is written with the JavaScript framework, React.js.
 ## Getting Started
 To run Take A Hike locally, create an empty directory and clone the project by running the following command in your terminal: ``` git@github.com:amazoradi/Take-A-Hike.git```
 
@@ -36,11 +36,12 @@ Open **database.json** and copy the following into the file to create a database
       "id": 3
     }],
 "hikes": [
-    {
+     {
       "id": 1,
       "userId": 3,
       "name": "Warner Woods Trail (White)",
       "hikeLocation": "Forest Hills, Tennessee",
+      "hikeState": "Tennessee",
       "length": 2.3,
       "stars": 4.4,
       "summary": "A popular wooded singletrack trail beginning at the entrance to the Warner Parks trail system.",
@@ -48,31 +49,38 @@ Open **database.json** and copy the following into the file to create a database
       "completed": true,
       "public": false,
       "date_completed": "11-21-2018",
-      "completed_message": "One of my favorite hikes in Nashville, I love how close it is to my house!"
+      "user_rating": 5,
+      "completed_message": "One of my favorite hikes in Nashville, I love how close it is to my house!",
+      "editId": 1
     },
     {
       "userId": 2,
       "name": "Mount Mitchell - Black Mountain Crest Trail #179",
       "hikeLocation": "Burnsville, North Carolina",
+      "hikeState": "North Carolina",
       "length": 12.1,
       "stars": 4.8,
       "summary": "The highest, most airy ridge traverse in the east and a destination hike not to be taken lightly.",
-      "completed": false,
+      "completed": true,
       "public": false,
-      "date_completed": "",
-      "completed_message": "",
-      "id": 3
+      "date_completed": "2018-07-30",
+      "user_rating": 4,
+      "completed_message": "What a great hike, glad we drove up part of it though...I need to get in shape.",
+      "id": 3,
+      "editId": 3
     },
     {
       "userId": 2,
       "name": "Montecito Peak",
       "hikeLocation": "Montecito, California",
+      "hikeState": "California",
       "length": 7,
       "stars": 4,
       "summary": "This out-and-back hike takes you through Cold Spring Canyon to the summit of Montecito Peak.",
       "completed": true,
       "public": false,
       "date_completed": "2018-12-04",
+      "user_rating": 5,
       "completed_message": "Best hike ever, tough but really rewarding.",
       "id": 4,
       "editId": 4
@@ -81,15 +89,18 @@ Open **database.json** and copy the following into the file to create a database
       "userId": 1,
       "name": "Jenny Lake",
       "hikeLocation": "Jackson, Wyoming",
+      "hikeState": "Wyoming",
       "length": 7.3,
       "stars": 4.5,
       "summary": "One of the most popular trails in Grand Teton and maybe the world...",
       "completed": true,
       "public": false,
-      "date_completed": "",
-      "completed_message": "",
-      "id": 5
-       }],
+      "date_completed": "2015-05-21",
+      "user_rating": 5,
+      "completed_message": "One of the best hikes.  a great taste of the teatons!",
+      "id": 5,
+      "editId": 5
+    }],
 "messages": [
     {
       "userId": 4,
@@ -128,7 +139,12 @@ Next  run the following in order to view Take A Hike in your browser: ```npm sta
 Open [http://localhost:3000]( http://localhost:3000) to view it in the browser.
 In another window of your terminal go into the ```src/api``` forlder and run: ```json-server -p 5002 -w database.json```
 
+## Entity Relationship Diagrams
+<img src"" width=200 >
+
+## Technologies used
+
 ## Enjoy Take A Hike 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-### Contributors
+### Aurhor
 [Austin Zoradi](https://github.com/amazoradi)
