@@ -30,14 +30,10 @@
 }
 
 .otherscard {
-  /* margin: 15px 20%; */
   background-color: #c8b9a7;
   border: 1px solid #93624f;
 }
 
-.messageBoard {
-  /* background-color: whitesmoke; */
-}
 
 .messageButtons {
   margin: 15px;

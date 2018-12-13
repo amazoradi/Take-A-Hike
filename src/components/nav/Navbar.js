@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Menu } from 'semantic-ui-react'
 import logo from "../../img/takeAHike.png" 
 import "./navbar.css"
+import "../authentication/authentication.css"
 
 class HikeNavBar extends Component {
 
@@ -49,9 +50,8 @@ class HikeNavBar extends Component {
       )
     } else {
       return (
-        <div >
-          <p className="welcomeTitle hide">Take A Hike</p>
-        </div>
+        <div className="welcomeTitle hide">
+                  </div>
       )
     }
   }

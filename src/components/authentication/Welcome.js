@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 import Login from "./Login"
 import Register from "./Register"
+import "./authentication.css"
 
 export default class Welcome extends Component {
 
@@ -105,8 +106,10 @@ export default class Welcome extends Component {
   render() {
     return (
       <React.Fragment>
-        <Login handleLogin={this.handleLogin} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} handleCheckbox={this.handleCheckbox} />
-        <Register constructNewUser={this.constructNewUser} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} handleRegister={this.handleRegister} />
+        <div className="welcomeBackground">
+          <Login handleLogin={this.handleLogin} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} handleCheckbox={this.handleCheckbox} />
+          <Register constructNewUser={this.constructNewUser} handleFieldChange={this.handleFieldChange} handleChangeForm={this.handleChangeForm} hideLoginForm={this.state.hideLoginForm} handleRegister={this.handleRegister} />
+        </div>
       </React.Fragment>
     )
   }

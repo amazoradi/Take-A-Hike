@@ -36,7 +36,7 @@ class GoogleMapsContainer extends React.Component {
       'marginLeft': 'auto',
       'marginRight': 'auto'
     }
-    // console.log(this.props.trails) 
+   
     return (
       <React.Fragment>
         <Map

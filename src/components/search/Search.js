@@ -52,13 +52,12 @@ export default class Search extends Component {
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
   }
+  
   getFilteredForgeinTrails = () => {
     const newState = {}
     APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
-      // .then(() => console.log("I successfully filtered by:", this.state.searchParam))
-
   }
 
   handleFieldChange = (evt) => {
