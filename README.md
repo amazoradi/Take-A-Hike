@@ -1,5 +1,6 @@
 # Take A Hike
-Take A Hike is an app for the explorer who may not know where the next adventure lies. If you have ever wanted to go for a hike but needed help finding the perfect trail, Take A Hike is the app you have been waiting for. Take a Hike allows the user to find new trails, create an inventory of the user's completed hikes and good old standbys, create a list of hikes the user wants to go on in the future,  and allows the user to chat with others in the hiking community.
+<img src="src/img/Take-a-Hike-Logo.png" alt="Take a Hike" width=150 >
+*Take A Hike* is an app for the explorer who may not know where the next adventure lies. If you have ever wanted to go for a hike but needed help finding the perfect trail, *Take A Hike* is the app you have been waiting for. *Take a Hike* allows the user to find new trails, create an inventory of the their completed hikes (from their faithful standbys to the not so favorites, and everything in between), create a list of hikes the user wants to go on in the future,  and allows the user to chat with others in the hiking community.
 Take a hike is written with the JavaScript framework, React.js.
 ## Getting Started
 To run Take A Hike locally, create an empty directory and clone the project by running the following command in your terminal: ``` git@github.com:amazoradi/Take-A-Hike.git```
@@ -140,11 +141,19 @@ Open [http://localhost:3000]( http://localhost:3000) to view it in the browser.
 In another window of your terminal go into the ```src/api``` forlder and run: ```json-server -p 5002 -w database.json```
 
 ## Entity Relationship Diagrams
-<img src"" width=200 >
+<img src="src/img/Take%20A%20Hike.png" >
 
-## Technologies used
+## Technologies Used
+<img src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-128.png" alt='React.JS' width=100><img src="https://www.schemecolor.com/wp-content/uploads/javascript-logo.png" alt='JS' width=100><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-8b61de4c84033266e15317a6eb9fda2d-css3.png" alt='CSS3' width=100><img src="https://www.w3.org/html/logo/downloads/HTML5_Logo_256.png" alt='HTML5' width=100>
+<img src="https://react.semantic-ui.com/logo.png" alt='Semantic-ui React' width=100>
+<img src="https://www.bootcdn.cn/assets/img/momentjs.svg?1541408619167" alt='Momentjs' width=100>
+<img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" alt='Google-Maps-React' width=100>
+<img src="https://site-images.similarcdn.com/url?url=https%3A%2F%2Flh3.googleusercontent.com%2FWEcmkSnm_lH7VwRC-r4O1b2bGMeDusyVEBKuDpfFu8lR3TC-Dzd7YP9Uw8YP_zvp4O4%3Dw256&h=6765243021399790723" alt='The Hiking Project' width=100>
+<img src="https://dashboard.snapcraft.io/site_media/appmedia/2018/07/code-256px_yXmjUSe.png" alt='VS Code' width=100>
+<img src="https://cdn.rawgit.com/npm/logos/31945b5c/npm%20square/n-64.png" alt='NPM' width=100>
+
 
 ## Enjoy Take A Hike 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-### Aurhor
+### Author
 [Austin Zoradi](https://github.com/amazoradi)
