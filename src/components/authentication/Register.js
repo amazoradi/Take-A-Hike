@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button, Form, Icon, Input } from 'semantic-ui-react'
+import React, { Component } from "react"
+import { Button, Form, Icon, Input } from "semantic-ui-react"
 import "./authentication.css"
-import logo from "./Take-a-Hike-Logo.png"
+import logo from "../../img/Take-a-Hike-Logo.png"
 
 export default class Register extends Component {
 

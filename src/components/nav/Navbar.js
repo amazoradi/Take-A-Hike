@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import { Menu } from 'semantic-ui-react'
-import logo from "./takeAHike.png"
+import logo from "../../img/takeAHike.png" 
 import "./navbar.css"
 
 class HikeNavBar extends Component {

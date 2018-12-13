@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from "../authentication/Take-a-Hike-Logo.png"
+import logo from "../../img/Take-a-Hike-Logo.png"
 
 
 export default class SearchResultCard extends Component {
@@ -16,6 +16,7 @@ export default class SearchResultCard extends Component {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       name: this.props.trail.name,
       hikeLocation: this.props.trail.location,
+      hikeState: this.props.trail.location.split(", ")[1],
       length: this.props.trail.length,
       stars: this.props.trail.stars,
       summary: this.props.trail.summary,
@@ -32,6 +33,7 @@ export default class SearchResultCard extends Component {
       userId: +sessionStorage.getItem("userId") || +localStorage.getItem("userId"),
       name: this.props.trail.name,
       hikeLocation: this.props.trail.location,
+      hikeState: this.props.trail.location.split(", ")[1],
       length: this.props.trail.length,
       stars: this.props.trail.stars,
       summary: this.props.trail.summary,

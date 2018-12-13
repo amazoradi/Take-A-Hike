@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./authentication.css"
 import { Button, Checkbox, Form, Icon, Input } from 'semantic-ui-react'
-import logo from "./Take-a-Hike-Logo.png"
+import logo from "../../img/Take-a-Hike-Logo.png"
 
 
 export default class Login extends Component {
