@@ -158,10 +158,8 @@ In another window of your terminal go into the ```src/api``` forlder and run: ``
 
 ## Visualization of Take A Hike
 
+![](src/img/takeAHikeDemo.gif)
 
-
-
-[link to Google!](http://google.com)
 ## Enjoy Take A Hike 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ### Author
