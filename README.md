@@ -154,8 +154,14 @@ In another window of your terminal go into the ```src/api``` forlder and run: ``
 <img src="https://site-images.similarcdn.com/url?url=https%3A%2F%2Flh3.googleusercontent.com%2FWEcmkSnm_lH7VwRC-r4O1b2bGMeDusyVEBKuDpfFu8lR3TC-Dzd7YP9Uw8YP_zvp4O4%3Dw256&h=6765243021399790723" alt='The Hiking Project' width=100>
 <img src="https://dashboard.snapcraft.io/site_media/appmedia/2018/07/code-256px_yXmjUSe.png" alt='VS Code' width=100>
 <img src="https://cdn.rawgit.com/npm/logos/31945b5c/npm%20square/n-64.png" alt='NPM' width=100>
+<img src="https://lh3.googleusercontent.com/HxaWoP7_9DZnmC3jzt6E4mHAupAHN2rzwnI2MgLvHGi_O4qPxIK8Ah3n5fAL0u0Nfuu5o1LdnA=w128-h128-e365" alt='Canva' width=100>
+
+## Visualization of Take A Hike
 
 
+
+
+[link to Google!](http://google.com)
 ## Enjoy Take A Hike 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ### Author
