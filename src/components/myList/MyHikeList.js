@@ -4,6 +4,8 @@ import { Button, Input } from "semantic-ui-react"
 import MyHikeMessage from "./MyHikeMessage"
 import "moment-timezone"
 import "./MyHike.css"
+import logo from "../../img/Take-a-Hike-Logo.png"
+import "../search/search.css"
 
 export default class MyHikeList extends Component {
   state = {
@@ -118,18 +120,17 @@ export default class MyHikeList extends Component {
         </div>
         {
           this.state.hikes.map(hike =>
-            <div key={hike.id} className="hikeCard">
-              <img src={hike.imgSqSmall} alt=""></img>
+            <div key={hike.id} className="trailCard">
+              <img src={hike.imageUrl || `${logo}`} alt="" ></img>
               <div className="cardText">
                 <h2>{hike.name}</h2>
                 <h4>{hike.hikeLocation}</h4>
                 <h5>{hike.length} miles. {hike.user_rating} stars out of 5</h5>
                 <p>{hike.summary}</p>
-                <div className={this.state.shownForm ? "hide" : "cardMessage"}>
+                <div className={this.state.shownForm ? "hide" : "cardText"}>
                   <p>Message: {hike.completed_message}</p>
                   <p>Last completed on:{hike.date_completed}</p>
                 </div>
-              </div>
               <div className={this.state.shownForm ? "hide" : "cardButtons"}>
                 <Button onClick={() => {
                   this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
@@ -142,6 +143,8 @@ export default class MyHikeList extends Component {
                 <Button onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to My Itinerary</Button>
                 <Button onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>
               </div>
+              </div>
+
             </div>
 
           )

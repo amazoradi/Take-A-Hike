@@ -2,6 +2,7 @@ import React from 'react';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import parameters from "../../config/callParams"
 
+
 class GoogleMapsContainer extends React.Component {
   constructor(props) {
     super(props);

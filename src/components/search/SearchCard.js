@@ -23,7 +23,8 @@ export default class SearchResultCard extends Component {
       completed: false,
       public: false,
       date_completed: "",
-      completed_message: ""
+      completed_message: "",
+      imageUrl: this.props.trail.imgSqSmall
     }
     this.props.addHikeCard(hikeCard)
   }
@@ -40,7 +41,8 @@ export default class SearchResultCard extends Component {
       completed: true,
       public: false,
       date_completed: "",
-      completed_message: ""
+      completed_message: "",
+      imageUrl: this.props.trail.imgSqSmall
     }
     this.props.addHikeCard(hikeCard)
   }

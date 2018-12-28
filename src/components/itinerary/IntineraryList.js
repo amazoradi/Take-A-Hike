@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 import { Button, Input } from "semantic-ui-react"
 import "./itinerary.css"
+import logo from "../../img/Take-a-Hike-Logo.png"
 
 export default class Itinerary extends Component {
   state = {
@@ -59,20 +60,20 @@ export default class Itinerary extends Component {
           <Button onClick={() => this.filterHikes(this.state.filterLocation)} >Filter</Button>
           <Button onClick={() => this.getAllHikes()} > Show Full Itinerary </Button>
         </div>
-        
+
         {
           this.state.hikes.map(hike =>
-            <div key={hike.id} className="hikeCard">
-              <img src={hike.imageUrl} alt=""></img>
+            <div key={hike.id} className="trailCard">
+              <img src={hike.imageUrl || `${logo}`} alt=""></img>
               <div className="cardText">
                 <h2>{hike.name}</h2>
                 <h4>{hike.hikeLocation}</h4>
                 <h5>{hike.length} miles. {hike.stars} stars out of 5</h5>
                 <p>{hike.summary}</p>
-              </div>
-              <div className="cardButtons">
-                <Button className="btn" onClick={() => this.deleteItineraryItem(`${hike.id}`)} >Remove</Button>
-                <Button className="btn" onClick={() => this.addToMyHikes(`${hike.id}`, { "completed": true })}>Add to My Hikes</Button>
+                <div className="cardButtons">
+                  <Button className="btn" onClick={() => this.deleteItineraryItem(`${hike.id}`)} >Remove</Button>
+                  <Button className="btn" onClick={() => this.addToMyHikes(`${hike.id}`, { "completed": true })}>Add to My Hikes</Button>
+                </div>
               </div>
             </div>
           )
