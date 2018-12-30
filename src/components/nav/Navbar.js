@@ -38,6 +38,7 @@ class HikeNavBar extends Component {
               <Menu.Item name='My Hikes' active={activeItem === 'My Hikes'} as={Link} to="/myHikes" onClick={this.handleItemClick} />
 
               <Menu.Item name='messages' active={activeItem === 'messages'} as={Link} to="/messages" onClick={this.handleItemClick} />
+              <Menu.Item name='Public Hikes' active={activeItem === 'Public Hikes'} as={Link} to="/public" onClick={this.handleItemClick} />
 
               <Menu.Item name='Logout' active={activeItem === 'Logout'} as={Link} to="/welcome" onClick={() => {
                 this.logoutUser()

@@ -61,7 +61,7 @@ export default class SearchResultCard extends Component {
             <button className="btn" onClick={() => {
               this.constructItineraryHikeCard()
               alert(`${this.props.trail.name} added to your itinerary. Happy hiking!`)
-            }} >Add to my Itinerary</button>
+            }} >Add to My Itinerary</button>
             <button className="btn" onClick={() => {
               this.constructCompletedHikeCard()
               alert(`${this.props.trail.name} added your list of completed hikes. Well done!`)

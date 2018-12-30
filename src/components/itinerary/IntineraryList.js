@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
-import { Button, Input } from "semantic-ui-react"
+import { Button, Input, Modal } from "semantic-ui-react"
 import "./itinerary.css"
 import logo from "../../img/Take-a-Hike-Logo.png"
 
@@ -9,6 +9,7 @@ export default class Itinerary extends Component {
     hikes: [],
     currentUserId: this.props.getCurrentUser(),
     filterLocation: "",
+    public: true,
   }
 
   componentDidMount() {
@@ -52,6 +53,14 @@ export default class Itinerary extends Component {
     this.setState(stateToChange)
   }
 
+  makeItPublic = (id, hikeCard) => {
+    const newState = {}
+    APIManager.editEntry("hikes", id, hikeCard)
+      .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`))
+      .then(hikes => newState.hikes = hikes)
+      .then(() => this.setState(newState))
+  }
+
   render() {
     return (
       <div >
@@ -63,7 +72,7 @@ export default class Itinerary extends Component {
 
         {
           this.state.hikes.map(hike =>
-            <div key={hike.id} className="trailCard">
+            <div key={hike.id} className={hike.public ? "trailCard public" : "trailCard"}>
               <img src={hike.imageUrl || `${logo}`} alt=""></img>
               <div className="cardText">
                 <h2>{hike.name}</h2>
@@ -73,6 +82,21 @@ export default class Itinerary extends Component {
                 <div className="cardButtons">
                   <Button className="btn" onClick={() => this.deleteItineraryItem(`${hike.id}`)} >Remove</Button>
                   <Button className="btn" onClick={() => this.addToMyHikes(`${hike.id}`, { "completed": true })}>Add to My Hikes</Button>
+                  <Modal trigger={<Button onClick={() => {
+                    this.makeItPublic(`${hike.id}`, { "public": !hike.public })
+
+                  }}
+                  > {hike.public ? "Remove from Public list" : "Make Public"} </Button>}>
+                    <Modal.Content>
+                      <h2>Add a Message to Share this Hike with the Public</h2>
+                      <Input id="public_message" icon="pencil" />
+                      <Input type="date" id="public_date" icon="calendar alternate outline" />
+                    </Modal.Content>
+                    <Modal.Actions>
+                      <Button negative>No</Button>
+                      <Button positive icon='checkmark' labelPosition='right' content='Sumbit' onClick={()=> this.handleFieldChange()}/>
+                    </Modal.Actions>
+                  </Modal>
                 </div>
               </div>
             </div>

@@ -37,6 +37,7 @@ export default class Search extends Component {
     },
     searchParam: "",
     searchValue: "",
+    weather: [],
   }
 
   getHardCodedTrails = () => {
@@ -52,7 +53,7 @@ export default class Search extends Component {
       .then(trails => newState.trails = trails.trails)
       .then(() => this.setState(newState))
   }
-  
+
   getFilteredForgeinTrails = () => {
     const newState = {}
     APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
@@ -126,7 +127,7 @@ export default class Search extends Component {
       .then(() => this.setState({ center: newState }))
       .then(() => this.getForgeinTrails())
   }
-  
+
   getAnyFilteredLocation = (locationName) => {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
@@ -135,7 +136,10 @@ export default class Search extends Component {
         newState.lng = location.results[0].geometry.location.lng
       })
       .then(() => this.setState({ center: newState }))
-      .then(() => this.getFilteredForgeinTrails())
+      .then(() => {
+        this.getFilteredForgeinTrails()
+        this.getCurrentWeather()
+      })
   }
 
   addHikeCard = hikeCard => {
@@ -157,8 +161,18 @@ export default class Search extends Component {
       alert("Please enter a location for your next hike.")
     } else {
       this.getAnyFilteredLocation(this.state.location)
+
     }
   }
+
+  getCurrentWeather = () => {
+    const newState = {}
+    APIManager.getWeather(`lat=${this.state.center.lat}&lon=${this.state.center.lng}&units=imperial&appid=${parameters.weather}`)
+      .then(weather => newState.weather = weather)
+      .then(() => this.setState(newState))
+      .then(() => console.log(this.state.weather, this.state.weather.main.temp, this.state.weather.weather[0].description, this.state.weather.name))
+  }
+
 
 
 
@@ -181,9 +195,13 @@ export default class Search extends Component {
           {
             this.state.trails.map(trail =>
               <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard} userCenter={this.state.userCenter} />
-            )
-          }
-        </div>
+              )
+            }
+                  
+
+                </div>
+
+
         <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} location={this.state.location} />
 
       </React.Fragment>

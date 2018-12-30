@@ -5,3 +5,7 @@
 .cardButtons{
   margin: 5px;
 }
+
+.public {
+  background-color: aquamarine;
+}
