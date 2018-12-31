@@ -25,7 +25,7 @@ export default class Messages extends Component {
     const newState = {}
     this.props.getAllUsers()
       .then(users => newState.users = users)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=15", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
 
@@ -47,7 +47,7 @@ export default class Messages extends Component {
   // posts a new message to the database and then gets all messages and puts them in state
   addNewMessage = newMessage => {
     APIManager.addEntry("messages", newMessage)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=15", "&_expand=user"))
       .then(messages => this.setState({ messages: messages }))
   }
 
@@ -59,19 +59,14 @@ export default class Messages extends Component {
       message: this.state.messageText,
       imgUrl: this.state.messageImg
     }
-    // basic form validation, will not let an new message be blank or one space
-    // if (this.state.messageText === "" || this.state.messageText === " ") {
-    //   alert("Please enter a message")
-    // } else {
     this.addNewMessage(message)
-    // }
   }
 
   //delete message
 
   deleteMessage = id => {
     APIManager.deleteEntry("messages", id)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=15", "&_expand=user"))
       .then(messages => this.setState({ messages: messages }))
   }
 
@@ -86,7 +81,7 @@ export default class Messages extends Component {
   editMessage = (id, message) => {
     const newState = {}
     APIManager.editEntry("messages", id, message)
-      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=10", "&_expand=user"))
+      .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=15", "&_expand=user"))
       .then(messages => newState.messages = messages)
       .then(() => this.setState(newState))
   }

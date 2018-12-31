@@ -6,7 +6,7 @@ import MyHikeList from "./myList/MyHikeList"
 import Itinerary from "./itinerary/IntineraryList"
 import Messages from "./messages/MessageList"
 import Welcome from "./authentication/Welcome"
-import Public from "./public/PublicList"
+
 
 
 export default class ApplicationViews extends Component {
@@ -53,13 +53,7 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/welcome" />
           }
         }} />
-        <Route exact path="/public" render={(props) => {
-          if (this.isAuthenticated()) {
-            return <Public {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
-          } else {
-            return <Redirect to="/welcome" />
-          }
-        }} />
+        
         <Route exact path="/welcome" render={(props) => {
           return (
             <Welcome {...props} getAllUsers={this.getAllUsers} />

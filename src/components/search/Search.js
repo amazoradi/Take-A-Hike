@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import APIManager from "../../modules/APIManager"
 import "./search.css";
 import parameters from "../../config/callParams"
-import { Input, Icon, Dropdown, Divider } from 'semantic-ui-react'
+import { Input, Icon, Dropdown, Divider, Button } from 'semantic-ui-react'
 import SearchResultCard from './SearchCard';
 import GoogleMapsContainer from './SearchResultMap'
 
@@ -38,6 +38,8 @@ export default class Search extends Component {
     searchParam: "",
     searchValue: "",
     weather: [],
+    weatherLocation: [],
+    weaterDescription: [],
   }
 
   getHardCodedTrails = () => {
@@ -86,7 +88,6 @@ export default class Search extends Component {
         newState.searchParam = value
         this.setState(newState)
       }
-      // console.log("first if", "state.searchparam:", newState.searchParam);
     } else {
       if (evt.target.firstChild.innerText.includes("Distance from Location")) {
         value = "maxDistance"
@@ -101,7 +102,6 @@ export default class Search extends Component {
         newState.searchParam = value
         this.setState(newState)
       }
-      // console.log("the else:", "state.searchparam:", newState.searchParam);
     }
   }
 
@@ -168,12 +168,18 @@ export default class Search extends Component {
   getCurrentWeather = () => {
     const newState = {}
     APIManager.getWeather(`lat=${this.state.center.lat}&lon=${this.state.center.lng}&units=imperial&appid=${parameters.weather}`)
-      .then(weather => newState.weather = weather)
+      .then(weather => {
+        newState.weather = weather.main
+        newState.weatherLocation = weather
+        newState.weaterDescription = weather.weather[0]
+      })
       .then(() => this.setState(newState))
-      .then(() => console.log(this.state.weather, this.state.weather.main.temp, this.state.weather.weather[0].description, this.state.weather.name))
   }
 
-
+  getForecast = () => {
+    const newState = {}
+    
+  }
 
 
   render() {
@@ -191,17 +197,22 @@ export default class Search extends Component {
           </div>
           <Divider />
         </div>
+        <div className={this.state.weather.length === 0 ? "hide" : "weatherWidget"}>
+          <h3>{this.state.weatherLocation.name}</h3>
+          <p>Current temperature is {this.state.weather.temp}° F</p>
+          <div className="weatherConditions">
+            <img src={`http://openweathermap.org/img/w/${this.state.weaterDescription.icon}.png`} alt="current weather" className="weatherIcon"></img>
+            <p>{this.state.weaterDescription.description}</p>
+          <Button>See 5 day forecast</Button>
+          </div>
+        </div>
         <div className="searchResultHolder">
           {
             this.state.trails.map(trail =>
               <SearchResultCard key={trail.id} trail={trail} addHikeCard={this.addHikeCard} userCenter={this.state.userCenter} />
-              )
-            }
-                  
-
-                </div>
-
-
+            )
+          }
+        </div>
         <GoogleMapsContainer center={this.state.center} trails={this.state.trails} userCenter={this.state.userCenter} location={this.state.location} />
 
       </React.Fragment>
