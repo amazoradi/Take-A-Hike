@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import APIManager from "../../modules/APIManager"
-import "./search.css";
+import "./search.css"
 import parameters from "../../config/callParams"
 import { Input, Icon, Dropdown, Divider } from 'semantic-ui-react'
-import SearchResultCard from './SearchCard';
+import SearchResultCard from './SearchCard'
 import GoogleMapsContainer from './SearchResultMap'
+
 
 
 const searchOptions = [
@@ -37,22 +38,13 @@ export default class Search extends Component {
     },
     searchParam: "",
     searchValue: "",
+    weather: [],
+    weatherLocation: [],
+    weaterDescription: [],
+    weatherSys: [],
   }
 
-  getHardCodedTrails = () => {
-    const newState = {}
-    APIManager.getAllEntries("trails")
-      .then(trails => newState.trails = trails)
-      .then(() => this.setState(newState))
-  }
-
-  getForgeinTrails = () => {
-    const newState = {}
-    APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&maxDistance=30&maxResults=10&key=${parameters.hikingProject}`)
-      .then(trails => newState.trails = trails.trails)
-      .then(() => this.setState(newState))
-  }
-  
+  //calls the hiking project API with lat and lng and a possible search parameter
   getFilteredForgeinTrails = () => {
     const newState = {}
     APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
@@ -60,12 +52,14 @@ export default class Search extends Component {
       .then(() => this.setState(newState))
   }
 
+  //generic handle function
   handleFieldChange = (evt) => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
   }
 
+  //handles the dropdowns for filtering searchs
   handleDropdownChange = (evt) => {
     let value;
     const newState = {};
@@ -85,7 +79,6 @@ export default class Search extends Component {
         newState.searchParam = value
         this.setState(newState)
       }
-      // console.log("first if", "state.searchparam:", newState.searchParam);
     } else {
       if (evt.target.firstChild.innerText.includes("Distance from Location")) {
         value = "maxDistance"
@@ -100,33 +93,10 @@ export default class Search extends Component {
         newState.searchParam = value
         this.setState(newState)
       }
-      // console.log("the else:", "state.searchparam:", newState.searchParam);
     }
   }
 
-  getHardCodedLocations = (locationName) => {
-    const newState = {}
-    return APIManager.getAllEntries("locations", `/?name=${locationName}`)
-      .then(location => {
-        newState.locationLat = location[0].latitude
-        newState.locationLong = location[0].longitude
-      })
-      .then(() => this.setState(newState))
-      .then(() => this.getForgeinTrails())
-      .catch(error => console.error('Error:', error));
-  }
-
-  getAnyLocation = (locationName) => {
-    const newState = {}
-    return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
-      .then(location => {
-        newState.lat = location.results[0].geometry.location.lat
-        newState.lng = location.results[0].geometry.location.lng
-      })
-      .then(() => this.setState({ center: newState }))
-      .then(() => this.getForgeinTrails())
-  }
-  
+// This functon set the lat and lng of the searched address and calls the function that reutrns the filtered hike results as well as the current weather
   getAnyFilteredLocation = (locationName) => {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
@@ -135,7 +105,10 @@ export default class Search extends Component {
         newState.lng = location.results[0].geometry.location.lng
       })
       .then(() => this.setState({ center: newState }))
-      .then(() => this.getFilteredForgeinTrails())
+      .then(() => {
+        this.getFilteredForgeinTrails()
+        this.getCurrentWeather()
+      })
   }
 
   addHikeCard = hikeCard => {
@@ -157,16 +130,29 @@ export default class Search extends Component {
       alert("Please enter a location for your next hike.")
     } else {
       this.getAnyFilteredLocation(this.state.location)
+
     }
   }
 
+//gets current weather information from lat an lng, stores it in state
+  getCurrentWeather = () => {
+    const newState = {}
+    APIManager.getWeather(`lat=${this.state.center.lat}&lon=${this.state.center.lng}&units=imperial&appid=${parameters.weather}`)
+      .then(weather => {
+        newState.weather = weather.main
+        newState.weatherLocation = weather
+        newState.weaterDescription = weather.weather[0]
+        newState.weatherSys = weather.sys
+      })
+      .then(() => this.setState(newState))
+  }
 
 
   render() {
     return (
       <React.Fragment>
         <div className="searchField">
-          <h2>Search for a hike near you</h2>
+          <h2>Search for a Hike Near You</h2>
           <div className="searchInput">
             <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
             <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
@@ -176,6 +162,16 @@ export default class Search extends Component {
             }} />
           </div>
           <Divider />
+        </div>
+        <div className={this.state.weather.length === 0 ? "hide" : "weatherWidget"}>
+          <div>
+            <h3>{this.state.weatherLocation.name}</h3>
+            <p>Current temperature: {this.state.weather.temp}° F</p>
+          </div>
+          <div className="weatherConditions">
+            <img src={`http://openweathermap.org/img/w/${this.state.weaterDescription.icon}.png`} alt="current weather" className="weatherIcon"></img>
+            <p>{this.state.weaterDescription.description}</p>
+          </div>
         </div>
         <div className="searchResultHolder">
           {

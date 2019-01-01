@@ -1,6 +1,7 @@
-import React from 'react';
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import React from 'react'
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react'
 import parameters from "../../config/callParams"
+
 
 class GoogleMapsContainer extends React.Component {
   constructor(props) {
@@ -36,25 +37,17 @@ class GoogleMapsContainer extends React.Component {
       'marginLeft': 'auto',
       'marginRight': 'auto'
     }
-   
+
     return (
       <React.Fragment>
         <Map
           google={this.props.google}
           center={this.props.center}
-          // initialCenter={this.props.userCenter}
           zoom={
             11
           }
           style={style}
         >
-          {/* <Marker
-            key={1}
-            onClick={this.onMarkerClick}
-            title={this.props.location}
-            position={{ lat: this.props.center.lat, lng: this.props.center.lng }}
-            name={this.props.location}
-          /> */}
           {this.props.trails.map(trail => (
 
             <Marker

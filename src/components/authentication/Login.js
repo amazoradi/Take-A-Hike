@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import "./authentication.css"
 import { Button, Checkbox, Form, Icon, Input } from 'semantic-ui-react'
 import logo from "../../img/Take-a-Hike-Logo.png"
@@ -12,7 +12,6 @@ export default class Login extends Component {
       <React.Fragment>
         <div className="welcomePage">
           <div className="formholder" >
-
             <div className={this.props.hideLoginForm ? "hide" : "loginForm"}>
               <div className="formTitle" >
                 <div className="imgDiv">
@@ -33,7 +32,6 @@ export default class Login extends Component {
                   <Checkbox type="checkbox" id="remember" label='Remember Me' onChange={this.props.handleCheckbox} />
                 </Form.Field>
                 <div className="welcomeButton">
-
                   <Button onClick={() => this.props.handleLogin()}>Login</Button>
                   <Button onClick={() => this.props.handleChangeForm()}>New Here? Click here to register.</Button>
                 </div>
