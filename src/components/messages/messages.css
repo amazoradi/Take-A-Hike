@@ -36,9 +36,13 @@
 
 
 .messageButtons {
-  margin: 15px;
+  margin: 5px;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.messageButtons:first-child {
+padding: 20px;
 }
 
 .bryans__class {

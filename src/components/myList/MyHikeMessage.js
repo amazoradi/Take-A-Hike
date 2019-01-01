@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Form, Rating } from "semantic-ui-react"
+import { Button, Form, Rating, Input } from "semantic-ui-react"
 
 export default class MyHikeMessage extends Component {
 
@@ -14,11 +14,11 @@ export default class MyHikeMessage extends Component {
           </Form.Field>
           <Form.Field >
             <label>Message</label>
-            <input onChange={this.props.handleFieldChange} id="completed_message" defaultValue={this.props.hike.completed_message} />
+            <Input icon="pencil" onChange={this.props.handleFieldChange} id="completed_message" defaultValue={this.props.hike.completed_message} />
           </Form.Field>
           <Form.Field>
             <label>Date Completed</label>
-            <input type="date" onChange={this.props.handleFieldChange} id="date_completed" defaultValue={this.props.hike.date_completed} />
+            <Input icon="calendar" type="date" onChange={this.props.handleFieldChange} id="date_completed" defaultValue={this.props.hike.date_completed} />
           </Form.Field>
           <Form.Field>
             <input id="editId" className="hide" defaultValue={this.props.hike.id} onChange={this.props.handleFieldChange} />

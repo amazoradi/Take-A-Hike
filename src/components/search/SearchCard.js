@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from "../../img/Take-a-Hike-Logo.png"
+import logo from "../../img/Take-a-Hike-Logo.png";
+import { Button } from "semantic-ui-react";
 
 
 export default class SearchResultCard extends Component {
@@ -58,14 +59,14 @@ export default class SearchResultCard extends Component {
           <h5>{this.props.trail.length} miles. {this.props.trail.stars} stars out of 5</h5>
           <p>{this.props.trail.summary}</p>
           <div className="cardButtons">
-            <button className="btn" onClick={() => {
+            <Button className="btn" onClick={() => {
               this.constructItineraryHikeCard()
               alert(`${this.props.trail.name} added to your itinerary. Happy hiking!`)
-            }} >Add to My Itinerary</button>
-            <button className="btn" onClick={() => {
+            }} >Add to My Itinerary</Button>
+            <Button className="btn" onClick={() => {
               this.constructCompletedHikeCard()
               alert(`${this.props.trail.name} added your list of completed hikes. Well done!`)
-            }}>Add to My Hikes</button>
+            }}>Add to My Hikes</Button>
           </div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import APIManager from "../../modules/APIManager"
+import APIManager from "../../modules/APIManager";
 import "./search.css";
-import parameters from "../../config/callParams"
-import { Input, Icon, Dropdown, Divider, Button } from 'semantic-ui-react'
+import parameters from "../../config/callParams";
+import { Input, Icon, Dropdown, Divider } from 'semantic-ui-react';
 import SearchResultCard from './SearchCard';
-import GoogleMapsContainer from './SearchResultMap'
+import GoogleMapsContainer from './SearchResultMap';
+import Moment from 'react-moment';
 
 
 const searchOptions = [
@@ -174,11 +175,7 @@ export default class Search extends Component {
         newState.weaterDescription = weather.weather[0]
       })
       .then(() => this.setState(newState))
-  }
-
-  getForecast = () => {
-    const newState = {}
-    
+      // .then(()=> console.log(this.state.weatherLocation.sys.sunrise))
   }
 
 
@@ -186,7 +183,7 @@ export default class Search extends Component {
     return (
       <React.Fragment>
         <div className="searchField">
-          <h2>Search for a hike near you</h2>
+          <h2>Search for a Hike Near You</h2>
           <div className="searchInput">
             <Input icon placeholder='City' id="location" onChange={this.handleFieldChange} />
             <Dropdown placeholder='Filters' selection options={searchOptions} id="searchParam" onChange={this.handleDropdownChange} />
@@ -198,12 +195,15 @@ export default class Search extends Component {
           <Divider />
         </div>
         <div className={this.state.weather.length === 0 ? "hide" : "weatherWidget"}>
-          <h3>{this.state.weatherLocation.name}</h3>
-          <p>Current temperature is {this.state.weather.temp}° F</p>
+          <div>
+            <h3>{this.state.weatherLocation.name}</h3>
+            <p>Current temperature: {this.state.weather.temp}° F</p>
+          </div>
           <div className="weatherConditions">
             <img src={`http://openweathermap.org/img/w/${this.state.weaterDescription.icon}.png`} alt="current weather" className="weatherIcon"></img>
             <p>{this.state.weaterDescription.description}</p>
-          <Button>See 5 day forecast</Button>
+            
+            
           </div>
         </div>
         <div className="searchResultHolder">

@@ -125,24 +125,34 @@ export default class MyHikeList extends Component {
               <div className="cardText">
                 <h2>{hike.name}</h2>
                 <h4>{hike.hikeLocation}</h4>
-                <h5>{hike.length} miles. {hike.user_rating} stars out of 5</h5>
+                <h5>{hike.length} miles. <p className={hike.completed_message.length === 0 ? "hide" : null}>{hike.user_rating} stars out of 5</p> </h5>
+                
                 <p>{hike.summary}</p>
                 <div className={this.state.shownForm ? "hide" : "cardText"}>
                   <p>Message: {hike.completed_message}</p>
                   <p>Last completed on:{hike.date_completed}</p>
                 </div>
-              <div className={this.state.shownForm ? "hide" : "cardButtons"}>
-                <Button onClick={() => {
-                  this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
-                }}>
-                  Add Message</Button>
-              </div>
-              <MyHikeMessage hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} getUserRating={this.getUserRating} handleRate={this.handleRate} rating={this.state.rating} user_rating={this.state.user_rating} />
+                <div className={this.state.shownForm ? " hide" : "cardButtons"}>
 
-              <div className={this.state.shownForm ? "hide" : "cardButtons"}>
-                <Button onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to My Itinerary</Button>
-                <Button onClick={() => this.deleteMyHike(hike.id)}>Delete</Button>
-              </div>
+
+                  {/* <div className={this.state.shownForm ? "hide" : null}> */}
+                  <Button size='medium' onClick={() => {
+                      this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
+                    }}>
+                      {hike.completed_message === "" ? "Add Message" : "Edit Message"}</Button>
+                  {/* </div> */}
+
+
+                  {/* <div className={this.state.shownForm ? "hide" : null}> */}
+                    <Button size='medium' onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to My Itinerary</Button>
+                  <Button icon="trash" onClick={() => this.deleteMyHike(hike.id)}></Button>
+                  {/* </div> */}
+
+                </div>
+
+
+
+                <MyHikeMessage hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} getUserRating={this.getUserRating} handleRate={this.handleRate} rating={this.state.rating} user_rating={this.state.user_rating} />
               </div>
 
             </div>
