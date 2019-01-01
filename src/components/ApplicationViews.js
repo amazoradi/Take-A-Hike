@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import APIManager from '../modules/APIManager'
 import { Route, Redirect } from 'react-router-dom'
 import Search from './search/Search'
@@ -27,7 +27,7 @@ export default class ApplicationViews extends Component {
 
         <Route exact path="/" render={(props) => {
           if (this.isAuthenticated()) {
-            return <Search {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser}/>
+            return <Search {...props} getAllUsers={this.getAllUsers} getCurrentUser={this.getCurrentUser} />
           } else {
             return <Redirect to="/welcome" />
           }
@@ -53,7 +53,7 @@ export default class ApplicationViews extends Component {
             return <Redirect to="/welcome" />
           }
         }} />
-        
+
         <Route exact path="/welcome" render={(props) => {
           return (
             <Welcome {...props} getAllUsers={this.getAllUsers} />

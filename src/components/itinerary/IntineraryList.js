@@ -1,16 +1,18 @@
 import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
-import { Button, Input} from "semantic-ui-react"
+import { Button, Input } from "semantic-ui-react"
 import "./itinerary.css"
 import logo from "../../img/Take-a-Hike-Logo.png"
 
 export default class Itinerary extends Component {
+
   state = {
     hikes: [],
     currentUserId: this.props.getCurrentUser(),
     filterLocation: "",
   }
 
+  //loads the itinerary list upon navigation to page
   componentDidMount() {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`)
@@ -18,12 +20,14 @@ export default class Itinerary extends Component {
       .then(() => this.setState(newState))
   }
 
+  //deletes an item
   deleteItineraryItem = id => {
     APIManager.deleteEntry("hikes", id)
       .then(() => APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`))
       .then(hikes => this.setState({ hikes: hikes }))
   }
 
+  //removes a hike from the itinerary and adds it to the My List section by changing completed to true
   addToMyHikes = (id, hikeCard) => {
     const newState = {}
     APIManager.editEntry("hikes", id, hikeCard)
@@ -32,6 +36,7 @@ export default class Itinerary extends Component {
       .then(() => this.setState(newState))
   }
 
+  //removes filter on itinerary list to show all hikes in list
   getAllHikes = () => {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=false&userId=${this.state.currentUserId}`)
@@ -39,6 +44,7 @@ export default class Itinerary extends Component {
       .then(() => this.setState(newState))
   }
 
+  //filters itinerary list by location passed in
   filterHikes = locationState => {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=false&hikeState=${locationState}&userId=${this.state.currentUserId}`)
@@ -61,7 +67,6 @@ export default class Itinerary extends Component {
           <Button onClick={() => this.filterHikes(this.state.filterLocation)} >Filter</Button>
           <Button onClick={() => this.getAllHikes()} > Show Full Itinerary </Button>
         </div>
-
         {
           this.state.hikes.map(hike =>
             <div key={hike.id} className="trailCard">

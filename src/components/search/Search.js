@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import APIManager from "../../modules/APIManager";
-import "./search.css";
-import parameters from "../../config/callParams";
-import { Input, Icon, Dropdown, Divider } from 'semantic-ui-react';
-import SearchResultCard from './SearchCard';
-import GoogleMapsContainer from './SearchResultMap';
-import Moment from 'react-moment';
+import React, { Component } from 'react'
+import APIManager from "../../modules/APIManager"
+import "./search.css"
+import parameters from "../../config/callParams"
+import { Input, Icon, Dropdown, Divider } from 'semantic-ui-react'
+import SearchResultCard from './SearchCard'
+import GoogleMapsContainer from './SearchResultMap'
+
 
 
 const searchOptions = [
@@ -41,22 +41,10 @@ export default class Search extends Component {
     weather: [],
     weatherLocation: [],
     weaterDescription: [],
+    weatherSys: [],
   }
 
-  getHardCodedTrails = () => {
-    const newState = {}
-    APIManager.getAllEntries("trails")
-      .then(trails => newState.trails = trails)
-      .then(() => this.setState(newState))
-  }
-
-  getForgeinTrails = () => {
-    const newState = {}
-    APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&maxDistance=30&maxResults=10&key=${parameters.hikingProject}`)
-      .then(trails => newState.trails = trails.trails)
-      .then(() => this.setState(newState))
-  }
-
+  //calls the hiking project API with lat and lng and a possible search parameter
   getFilteredForgeinTrails = () => {
     const newState = {}
     APIManager.getSearchedHikes(`?lat=${this.state.center.lat}&lon=${this.state.center.lng}&${this.state.searchParam}=${this.state.searchValue}&maxResults=10&key=${parameters.hikingProject}`)
@@ -64,12 +52,14 @@ export default class Search extends Component {
       .then(() => this.setState(newState))
   }
 
+  //generic handle function
   handleFieldChange = (evt) => {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
   }
 
+  //handles the dropdowns for filtering searchs
   handleDropdownChange = (evt) => {
     let value;
     const newState = {};
@@ -106,29 +96,7 @@ export default class Search extends Component {
     }
   }
 
-  getHardCodedLocations = (locationName) => {
-    const newState = {}
-    return APIManager.getAllEntries("locations", `/?name=${locationName}`)
-      .then(location => {
-        newState.locationLat = location[0].latitude
-        newState.locationLong = location[0].longitude
-      })
-      .then(() => this.setState(newState))
-      .then(() => this.getForgeinTrails())
-      .catch(error => console.error('Error:', error));
-  }
-
-  getAnyLocation = (locationName) => {
-    const newState = {}
-    return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
-      .then(location => {
-        newState.lat = location.results[0].geometry.location.lat
-        newState.lng = location.results[0].geometry.location.lng
-      })
-      .then(() => this.setState({ center: newState }))
-      .then(() => this.getForgeinTrails())
-  }
-
+// This functon set the lat and lng of the searched address and calls the function that reutrns the filtered hike results as well as the current weather
   getAnyFilteredLocation = (locationName) => {
     const newState = {}
     return APIManager.getAnyLocation(`?address=${locationName}&key=${parameters.google}`)
@@ -166,6 +134,7 @@ export default class Search extends Component {
     }
   }
 
+//gets current weather information from lat an lng, stores it in state
   getCurrentWeather = () => {
     const newState = {}
     APIManager.getWeather(`lat=${this.state.center.lat}&lon=${this.state.center.lng}&units=imperial&appid=${parameters.weather}`)
@@ -173,9 +142,9 @@ export default class Search extends Component {
         newState.weather = weather.main
         newState.weatherLocation = weather
         newState.weaterDescription = weather.weather[0]
+        newState.weatherSys = weather.sys
       })
       .then(() => this.setState(newState))
-      // .then(()=> console.log(this.state.weatherLocation.sys.sunrise))
   }
 
 
@@ -202,8 +171,6 @@ export default class Search extends Component {
           <div className="weatherConditions">
             <img src={`http://openweathermap.org/img/w/${this.state.weaterDescription.icon}.png`} alt="current weather" className="weatherIcon"></img>
             <p>{this.state.weaterDescription.description}</p>
-            
-            
           </div>
         </div>
         <div className="searchResultHolder">

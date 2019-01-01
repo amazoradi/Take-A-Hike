@@ -21,6 +21,7 @@ export default class Messages extends Component {
     currentUserId: this.props.getCurrentUser()
   }
 
+  //loads messages when page is loaded
   componentDidMount() {
     const newState = {}
     this.props.getAllUsers()
@@ -42,8 +43,6 @@ export default class Messages extends Component {
     this.setState(stateToChange)
   }
 
-  //new message functions
-
   // posts a new message to the database and then gets all messages and puts them in state
   addNewMessage = newMessage => {
     APIManager.addEntry("messages", newMessage)
@@ -62,15 +61,14 @@ export default class Messages extends Component {
     this.addNewMessage(message)
   }
 
-  //delete message
-
+  //deletes message
   deleteMessage = id => {
     APIManager.deleteEntry("messages", id)
       .then(() => APIManager.getAllEntries("messages", "?_sort=time", "&_order=desc", "&_limit=15", "&_expand=user"))
       .then(messages => this.setState({ messages: messages }))
   }
 
-  //edit message
+  //edit message functions
 
   handleEditFieldChange = evt => {
     const stateToChange = {}
@@ -105,7 +103,6 @@ export default class Messages extends Component {
   }
 
   render() {
-
     return (
       <React.Fragment>
         <div className="messageBoard bryans__class">

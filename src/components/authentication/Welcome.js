@@ -53,6 +53,7 @@ export default class Welcome extends Component {
   registerNewUser = user => {
     return APIManager.addEntry("users", user)
   }
+  
   //  Handle register for new user with form validation and checking database of email
   handleRegister = (e) => {
     if (this.state.registerEmail === "" || this.state.registerName === "" || this.state.registerPassword === "" || this.state.registerLocation === "") {

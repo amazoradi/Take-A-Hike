@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import logo from "../../img/Take-a-Hike-Logo.png";
-import { Button } from "semantic-ui-react";
+import React, { Component } from 'react'
+import logo from "../../img/Take-a-Hike-Logo.png"
+import { Button } from "semantic-ui-react"
 
 
 export default class SearchResultCard extends Component {

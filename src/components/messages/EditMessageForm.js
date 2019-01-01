@@ -7,7 +7,6 @@ export default class EditMessageForm extends Component {
     return (
       <React.Fragment>
         <div >
-
           <Form className={this.props.hideEditForm ? "hide" : null} >
             <Form.Field >
               <label>Message</label>

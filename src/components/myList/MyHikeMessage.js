@@ -4,7 +4,6 @@ import { Button, Form, Rating, Input } from "semantic-ui-react"
 export default class MyHikeMessage extends Component {
 
   render() {
-
     return (
       <div className={`${this.props.shownForm === this.props.hike.id ? null : 'hide'}`}  >
         <Form >
@@ -29,7 +28,6 @@ export default class MyHikeMessage extends Component {
           <Button onClick={() => {
             this.props.handleEditClick()
             this.props.constructNewMessage()
-            console.log(this.props.rating)
           }}>Submit</Button>
         </Form>
       </div>

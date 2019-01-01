@@ -20,6 +20,7 @@ export default class MyHikeList extends Component {
     filterLocation: "",
   }
 
+  //loads all completed hike for the user on page load
   componentDidMount() {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
@@ -27,6 +28,7 @@ export default class MyHikeList extends Component {
       .then(() => this.setState(newState))
   }
 
+  //loads all completed hike for the user
   getAllHikes = () => {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`)
@@ -34,12 +36,14 @@ export default class MyHikeList extends Component {
       .then(() => this.setState(newState))
   }
 
+  //deletes a hike from the completed list
   deleteMyHike = id => {
     APIManager.deleteEntry("hikes", id)
       .then(() => APIManager.getAllEntries("hikes", `/?completed=true&userId=${this.state.currentUserId}`))
       .then(hikes => this.setState({ hikes: hikes }))
   }
 
+  //adds a hike to the itinerary list by changing completed to true
   addToMyItinerary = (id, hikeCard) => {
     const newState = {}
     APIManager.editEntry("hikes", id, hikeCard)
@@ -48,6 +52,7 @@ export default class MyHikeList extends Component {
       .then(() => this.setState(newState))
   }
 
+  //filters My Hikes by location passed in
   filterHikes = locationState => {
     const newState = {}
     APIManager.getAllEntries("hikes", `/?completed=true&hikeState=${locationState}&userId=${this.state.currentUserId}`)
@@ -69,7 +74,6 @@ export default class MyHikeList extends Component {
       user_rating: this.state.rating,
       editId: this.state.editId
     }
-    console.log("message to be added", message)
     this.addMessageToCard(message.editId, message)
   }
 
@@ -125,38 +129,23 @@ export default class MyHikeList extends Component {
               <div className="cardText">
                 <h2>{hike.name}</h2>
                 <h4>{hike.hikeLocation}</h4>
-                <h5>{hike.length} miles. <p className={hike.completed_message.length === 0 ? "hide" : null}>{hike.user_rating} stars out of 5</p> </h5>
-                
+                <h5>{hike.length} miles. <p className={hike.completed_message.length === 0 ? "hide" : null}>{hike.user_rating} stars out of 5</p></h5>
                 <p>{hike.summary}</p>
                 <div className={this.state.shownForm ? "hide" : "cardText"}>
                   <p>Message: {hike.completed_message}</p>
                   <p>Last completed on:{hike.date_completed}</p>
                 </div>
                 <div className={this.state.shownForm ? " hide" : "cardButtons"}>
-
-
-                  {/* <div className={this.state.shownForm ? "hide" : null}> */}
                   <Button size='medium' onClick={() => {
-                      this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
-                    }}>
-                      {hike.completed_message === "" ? "Add Message" : "Edit Message"}</Button>
-                  {/* </div> */}
-
-
-                  {/* <div className={this.state.shownForm ? "hide" : null}> */}
-                    <Button size='medium' onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to My Itinerary</Button>
+                    this.handleEditClick(hike.completed_message, hike.date_completed, hike.user_rating, hike.id)
+                  }}>
+                    {hike.completed_message === "" ? "Add Message" : "Edit Message"}</Button>
+                  <Button size='medium' onClick={() => this.addToMyItinerary(`${hike.id}`, { "completed": false })}>Add to My Itinerary</Button>
                   <Button icon="trash" onClick={() => this.deleteMyHike(hike.id)}></Button>
-                  {/* </div> */}
-
                 </div>
-
-
-
                 <MyHikeMessage hike={hike} handleFieldChange={this.handleFieldChange} constructNewMessage={this.constructNewMessage} handleNewEdit={this.handleNewEdit} shownForm={this.state.shownForm} handleEditClick={this.handleEditClick} getUserRating={this.getUserRating} handleRate={this.handleRate} rating={this.state.rating} user_rating={this.state.user_rating} />
               </div>
-
             </div>
-
           )
         }
       </div>
