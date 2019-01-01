@@ -157,6 +157,7 @@ In another window of your terminal go into the ```src/api``` forlder and run: ``
 <img src="https://dashboard.snapcraft.io/site_media/appmedia/2018/07/code-256px_yXmjUSe.png" alt='VS Code' width=100>
 <img src="https://cdn.rawgit.com/npm/logos/31945b5c/npm%20square/n-64.png" alt='NPM' width=100>
 <img src="https://lh3.googleusercontent.com/HxaWoP7_9DZnmC3jzt6E4mHAupAHN2rzwnI2MgLvHGi_O4qPxIK8Ah3n5fAL0u0Nfuu5o1LdnA=w128-h128-e365" alt='Canva' width=100>
+<img src="https://media.dragstone.com/content/icon-openweathermap-1.png" alt='Open Weather Map' width=100>
 
 ## Visualization of Take A Hike
 
