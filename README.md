@@ -161,7 +161,7 @@ In another window of your terminal go into the ```src/api``` forlder and run: ``
 
 ## Visualization of Take A Hike
 
-![](src/img/takeAHikeDemo1.gif)
+![](src/img/takeAHikeDemo2.gif)
 
 ## Enjoy Take A Hike 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
