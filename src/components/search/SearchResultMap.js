@@ -43,6 +43,7 @@ class GoogleMapsContainer extends React.Component {
         <Map
           google={this.props.google}
           center={this.props.center}
+          mapType="TERRAIN"
           zoom={
             11
           }
